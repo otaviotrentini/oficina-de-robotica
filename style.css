@@ -1,0 +1,296 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+body{
+
+    background:#f4f7fb;
+    color:#222;
+
+}
+
+
+
+header{
+
+    background:#111827;
+    padding:20px;
+
+}
+
+
+
+nav{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+
+
+nav h1{
+
+    color:#00e5ff;
+
+}
+
+
+
+nav ul{
+
+    display:flex;
+    list-style:none;
+    gap:25px;
+
+}
+
+
+
+nav a{
+
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+
+}
+
+
+nav a:hover{
+
+    color:#00e5ff;
+
+}
+
+
+
+
+.inicio{
+
+    height:500px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+
+    linear-gradient(
+    rgba(0,0,0,0.5),
+    rgba(0,0,0,0.5)
+    ),
+
+    url("https://images.unsplash.com/photo-1485827404703-89b55fcc595e");
+
+    background-size:cover;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+
+.texto{
+
+    max-width:700px;
+
+}
+
+
+
+.texto h2{
+
+    font-size:45px;
+
+}
+
+
+
+.texto p{
+
+    font-size:20px;
+
+    margin:20px;
+
+}
+
+
+
+button{
+
+    padding:12px 25px;
+
+    border:none;
+
+    border-radius:20px;
+
+    background:#00bcd4;
+
+    color:white;
+
+    cursor:pointer;
+
+    margin:10px;
+
+    font-size:16px;
+
+}
+
+
+
+button:hover{
+
+    background:#007c91;
+
+}
+
+
+
+
+section{
+
+    padding:50px;
+
+    text-align:center;
+
+}
+
+
+
+section h2{
+
+    font-size:35px;
+
+    margin-bottom:25px;
+
+    color:#111827;
+
+}
+
+
+
+.cards{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:25px;
+
+}
+
+
+
+.card{
+
+    background:white;
+
+    width:300px;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px #ccc;
+
+}
+
+
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    transition:.3s;
+
+}
+
+
+
+.lista{
+
+    list-style:none;
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+}
+
+
+
+.lista li{
+
+    background:#111827;
+
+    color:white;
+
+    padding:15px 30px;
+
+    border-radius:20px;
+
+}
+
+
+
+#quiz{
+
+    background:#e0f7fa;
+
+}
+
+
+
+footer{
+
+    background:#111827;
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+
+
+@media(max-width:700px){
+
+nav{
+
+flex-direction:column;
+
+}
+
+
+nav ul{
+
+margin-top:20px;
+
+flex-direction:column;
+
+}
+
+
+.texto h2{
+
+font-size:30px;
+
+}
+
+
+}
