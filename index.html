@@ -1,47 +1,137 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Oficina de Robótica</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Oficina de Robótica - Educação, tecnologia e inovação">
+
+    <title>Oficina de Robótica | Educação e Tecnologia</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
-<header>
-    <nav>
-        <h1>🤖 Oficina de Robótica</h1>
 
-        <ul>
-            <li><a href="#inicio">Início</a></li>
-            <li><a href="#sobre">Sobre</a></li>
-            <li><a href="#projetos">Projetos</a></li>
-            <li><a href="#tecnologias">Tecnologias</a></li>
-            <li><a href="#quiz">Quiz</a></li>
-        </ul>
+<!-- =====================================================
+     BARRA DE NAVEGAÇÃO
+===================================================== -->
+
+<header class="header">
+
+    <div class="logo">
+        🤖 <span>Robo</span>Lab
+    </div>
+
+
+    <nav class="navbar">
+
+        <a href="#inicio">Início</a>
+
+        <a href="#sobre">Sobre</a>
+
+        <a href="#aulas">Aulas</a>
+
+        <a href="#projetos">Projetos</a>
+
+        <a href="#componentes">Componentes</a>
+
+        <a href="#tecnologias">Tecnologias</a>
+
+        <a href="#quiz">Quiz</a>
+
+        <a href="#galeria">Galeria</a>
+
+        <a href="#contato">Contato</a>
 
     </nav>
+
+
+    <button id="themeButton"
+            class="theme-button">
+
+        🌙
+
+    </button>
+
+
+    <button class="menu-button"
+            onclick="abrirMenu()">
+
+        ☰
+
+    </button>
+
 </header>
 
 
-<section id="inicio" class="inicio">
 
-    <div class="texto">
+<!-- =====================================================
+     HERO / INÍCIO
+===================================================== -->
 
-        <h2>Aprenda, Crie e Inove com Robótica</h2>
+<section id="inicio"
+         class="hero">
+
+
+    <div class="hero-content">
+
+
+        <span class="tag">
+
+            🚀 TECNOLOGIA + EDUCAÇÃO
+
+        </span>
+
+
+        <h1>
+
+            Oficina de Robótica
+
+            <br>
+
+            <span>Crie. Programe. Inove.</span>
+
+        </h1>
+
 
         <p>
-            A Oficina de Robótica é um espaço de aprendizado onde alunos
-            desenvolvem criatividade, programação e tecnologia criando
-            seus próprios robôs.
+
+            Um espaço para aprender programação,
+            eletrônica, automação e robótica através
+            de projetos criativos.
+
         </p>
 
-        <button onclick="mostrarMensagem()">
-            Começar Aprendizado
-        </button>
+
+        <div class="hero-buttons">
+
+            <a href="#projetos"
+               class="button">
+
+                Ver projetos
+
+            </a>
+
+
+            <a href="#sobre"
+               class="button secondary">
+
+                Conhecer a oficina
+
+            </a>
+
+        </div>
+
 
     </div>
 
@@ -50,161 +140,1025 @@
 
 
 
-<section id="sobre">
+<!-- =====================================================
+     ESTATÍSTICAS
+===================================================== -->
 
-<h2>Sobre a Oficina</h2>
-
-<p>
-A robótica educacional ajuda estudantes a desenvolver pensamento lógico,
-trabalho em equipe e habilidades tecnológicas para o futuro.
-</p>
+<section class="statistics">
 
 
-<div class="cards">
+    <div class="stat">
 
-<div class="card">
-<h3>💻 Programação</h3>
-<p>
-Aprenda lógica de programação usando linguagens como JavaScript,
-Python e Scratch.
-</p>
-</div>
+        <strong id="numeroProjetos">
 
+            0
 
-<div class="card">
-<h3>⚙️ Eletrônica</h3>
-<p>
-Conheça sensores, motores, placas Arduino e circuitos eletrônicos.
-</p>
-</div>
+        </strong>
+
+        <span>
+
+            Projetos
+
+        </span>
+
+    </div>
 
 
-<div class="card">
-<h3>🤖 Construção</h3>
-<p>
-Monte robôs inteligentes utilizando criatividade e inovação.
-</p>
-</div>
+    <div class="stat">
+
+        <strong>
+
+            15+
+
+        </strong>
+
+        <span>
+
+            Componentes
+
+        </span>
+
+    </div>
 
 
-</div>
+    <div class="stat">
 
-</section>
+        <strong>
 
+            10+
 
+        </strong>
 
+        <span>
 
-<section id="projetos">
+            Tecnologias
 
-<h2>Projetos da Oficina</h2>
+        </span>
 
-
-<div class="cards">
-
-
-<div class="card">
-<h3>🚗 Robô Seguidor de Linha</h3>
-
-<p>
-Robô que utiliza sensores para seguir caminhos automaticamente.
-</p>
-
-</div>
+    </div>
 
 
-<div class="card">
+    <div class="stat">
 
-<h3>🌱 Robô Sustentável</h3>
+        <strong>
 
-<p>
-Projeto voltado para soluções ambientais usando tecnologia.
-</p>
+            100%
 
-</div>
+        </strong>
 
+        <span>
 
+            Criatividade
 
-<div class="card">
+        </span>
 
-<h3>🏠 Casa Inteligente</h3>
-
-<p>
-Sistema automatizado utilizando sensores e programação.
-</p>
-
-</div>
-
-
-</div>
+    </div>
 
 
 </section>
 
 
 
+<!-- =====================================================
+     SOBRE
+===================================================== -->
 
-<section id="tecnologias">
-
-<h2>Tecnologias Utilizadas</h2>
-
-
-<ul class="lista">
-
-<li>Arduino</li>
-<li>JavaScript</li>
-<li>Python</li>
-<li>Scratch</li>
-<li>Sensores</li>
-<li>Motores</li>
-<li>Impressão 3D</li>
+<section id="sobre"
+         class="section">
 
 
-</ul>
+    <div class="section-title">
+
+        <span>01</span>
+
+        <h2>Sobre a Oficina</h2>
+
+        <p>
+            Aprendendo tecnologia na prática.
+        </p>
+
+    </div>
+
+
+    <div class="about-grid">
+
+
+        <div class="about-text">
+
+            <h3>
+
+                O que é uma oficina de robótica?
+
+            </h3>
+
+
+            <p>
+
+                A oficina de robótica é um ambiente
+                educacional onde os alunos podem
+                aprender conceitos de programação,
+                eletrônica, mecânica e automação.
+
+            </p>
+
+
+            <p>
+
+                Através de projetos práticos,
+                os estudantes desenvolvem criatividade,
+                raciocínio lógico, resolução de problemas
+                e trabalho em equipe.
+
+            </p>
+
+
+            <ul>
+
+                <li>✓ Pensamento lógico</li>
+
+                <li>✓ Criatividade</li>
+
+                <li>✓ Programação</li>
+
+                <li>✓ Eletrônica</li>
+
+                <li>✓ Trabalho em equipe</li>
+
+            </ul>
+
+
+        </div>
+
+
+        <div class="about-card">
+
+            <div class="robot-icon">
+
+                🤖
+
+            </div>
+
+            <h3>
+
+                Aprender fazendo
+
+            </h3>
+
+            <p>
+
+                Transforme ideias em projetos reais
+                utilizando tecnologia.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     AULAS
+===================================================== -->
+
+<section id="aulas"
+         class="section gray">
+
+
+    <div class="section-title">
+
+        <span>02</span>
+
+        <h2>Aulas</h2>
+
+        <p>
+            Conteúdos que podem ser trabalhados
+            na oficina.
+        </p>
+
+    </div>
+
+
+    <div class="cards">
+
+
+        <article class="card">
+
+            <div class="card-icon">
+
+                💻
+
+            </div>
+
+            <h3>
+
+                Programação
+
+            </h3>
+
+            <p>
+
+                Introdução à lógica de programação
+                e criação de algoritmos.
+
+            </p>
+
+            <button onclick="mostrarAula('programacao')">
+
+                Ver conteúdo
+
+            </button>
+
+        </article>
+
+
+
+        <article class="card">
+
+            <div class="card-icon">
+
+                ⚡
+
+            </div>
+
+            <h3>
+
+                Eletrônica
+
+            </h3>
+
+            <p>
+
+                Resistores, LEDs, sensores,
+                motores e circuitos.
+
+            </p>
+
+            <button onclick="mostrarAula('eletronica')">
+
+                Ver conteúdo
+
+            </button>
+
+        </article>
+
+
+
+        <article class="card">
+
+            <div class="card-icon">
+
+                🤖
+
+            </div>
+
+            <h3>
+
+                Robótica
+
+            </h3>
+
+            <p>
+
+                Construção e programação
+                de robôs.
+
+            </p>
+
+            <button onclick="mostrarAula('robotica')">
+
+                Ver conteúdo
+
+            </button>
+
+        </article>
+
+
+    </div>
+
+
+    <div id="aulaInfo"
+         class="info-box">
+
+    </div>
 
 
 </section>
 
 
 
+<!-- =====================================================
+     PROJETOS
+===================================================== -->
 
-<section id="quiz">
-
-
-<h2>Teste seus conhecimentos 🤔</h2>
-
-
-<p>
-Qual linguagem é muito utilizada para criar sites interativos?
-</p>
+<section id="projetos"
+         class="section">
 
 
-<button onclick="resposta('JavaScript')">
-JavaScript
-</button>
+    <div class="section-title">
+
+        <span>03</span>
+
+        <h2>Meus Projetos</h2>
+
+        <p>
+
+            Adicione aqui os projetos desenvolvidos
+            na oficina.
+
+        </p>
+
+    </div>
 
 
-<button onclick="resposta('HTML')">
-HTML
-</button>
+
+    <!-- CONTROLE DOS PROJETOS -->
+
+    <div class="project-controls">
 
 
-<button onclick="resposta('CSS')">
-CSS
-</button>
+        <input
+            type="text"
+            id="pesquisaProjeto"
+            placeholder="🔎 Pesquisar projeto..."
+        >
 
 
-<h3 id="resultado"></h3>
+        <button onclick="abrirFormulario()">
+
+            + Adicionar projeto
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- FORMULÁRIO -->
+
+    <div id="formularioProjeto"
+         class="project-form hidden">
+
+
+        <h3>
+
+            Adicionar novo projeto
+
+        </h3>
+
+
+        <input
+            type="text"
+            id="nomeProjeto"
+            placeholder="Nome do projeto"
+        >
+
+
+        <textarea
+            id="descricaoProjeto"
+            placeholder="Descrição do projeto">
+        </textarea>
+
+
+        <input
+            type="text"
+            id="tecnologiaProjeto"
+            placeholder="Tecnologias utilizadas"
+        >
+
+
+        <input
+            type="text"
+            id="imagemProjeto"
+            placeholder="URL da imagem (opcional)"
+        >
+
+
+        <div>
+
+            <button onclick="salvarProjeto()">
+
+                Salvar projeto
+
+            </button>
+
+
+            <button onclick="fecharFormulario()"
+                    class="cancel">
+
+                Cancelar
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- LISTA -->
+
+    <div id="listaProjetos"
+         class="project-grid">
+
+
+        <!-- Projetos aparecem aqui -->
+
+    </div>
 
 
 </section>
 
 
+
+<!-- =====================================================
+     COMPONENTES
+===================================================== -->
+
+<section id="componentes"
+         class="section gray">
+
+
+    <div class="section-title">
+
+        <span>04</span>
+
+        <h2>Componentes</h2>
+
+        <p>
+
+            Conheça alguns componentes utilizados
+            em projetos de robótica.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="component-grid">
+
+
+        <div class="component">
+
+            <span>🔴</span>
+
+            <h3>LED</h3>
+
+            <p>
+
+                Componente utilizado para
+                emitir luz.
+
+            </p>
+
+        </div>
+
+
+        <div class="component">
+
+            <span>📡</span>
+
+            <h3>Sensor</h3>
+
+            <p>
+
+                Detecta informações do ambiente.
+
+            </p>
+
+        </div>
+
+
+        <div class="component">
+
+            <span>⚙️</span>
+
+            <h3>Motor</h3>
+
+            <p>
+
+                Permite movimentar robôs
+                e mecanismos.
+
+            </p>
+
+        </div>
+
+
+        <div class="component">
+
+            <span>🧠</span>
+
+            <h3>Arduino</h3>
+
+            <p>
+
+                Plataforma utilizada para
+                controlar projetos eletrônicos.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     TECNOLOGIAS
+===================================================== -->
+
+<section id="tecnologias"
+         class="section">
+
+
+    <div class="section-title">
+
+        <span>05</span>
+
+        <h2>Tecnologias</h2>
+
+        <p>
+
+            Ferramentas utilizadas nos projetos.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="technology-grid">
+
+
+        <div>
+
+            <strong>HTML</strong>
+
+            <p>
+
+                Estrutura das páginas.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <strong>CSS</strong>
+
+            <p>
+
+                Design e aparência.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <strong>JavaScript</strong>
+
+            <p>
+
+                Interações e funcionalidades.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <strong>Arduino</strong>
+
+            <p>
+
+                Controle de componentes.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <strong>Python</strong>
+
+            <p>
+
+                Programação e automação.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <strong>Scratch</strong>
+
+            <p>
+
+                Programação visual.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     DESAFIOS
+===================================================== -->
+
+<section id="desafios"
+         class="section gray">
+
+
+    <div class="section-title">
+
+        <span>06</span>
+
+        <h2>Desafios</h2>
+
+        <p>
+
+            Desafie seus conhecimentos.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="challenge">
+
+        <h3>
+
+            🚦 Desafio do Semáforo
+
+        </h3>
+
+        <p>
+
+            Crie um sistema utilizando LEDs
+            para representar um semáforo.
+
+        </p>
+
+
+        <span>
+
+            ⭐ Nível: Iniciante
+
+        </span>
+
+    </div>
+
+
+
+    <div class="challenge">
+
+        <h3>
+
+            🚗 Desafio do Carrinho
+
+        </h3>
+
+        <p>
+
+            Desenvolva um pequeno veículo
+            controlado por programação.
+
+        </p>
+
+
+        <span>
+
+            ⭐⭐ Nível: Intermediário
+
+        </span>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     QUIZ
+===================================================== -->
+
+<section id="quiz"
+         class="section">
+
+
+    <div class="section-title">
+
+        <span>07</span>
+
+        <h2>Quiz de Robótica</h2>
+
+        <p>
+
+            Teste seus conhecimentos.
+
+        </p>
+
+    </div>
+
+
+    <div class="quiz-box">
+
+
+        <h3 id="pergunta">
+
+            Qual componente pode emitir luz?
+
+        </h3>
+
+
+        <div id="opcoes">
+
+
+            <button onclick="responder('LED')">
+
+                LED
+
+            </button>
+
+
+            <button onclick="responder('Motor')">
+
+                Motor
+
+            </button>
+
+
+            <button onclick="responder('Resistor')">
+
+                Resistor
+
+            </button>
+
+
+        </div>
+
+
+        <p id="resultadoQuiz"></p>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     GALERIA
+===================================================== -->
+
+<section id="galeria"
+         class="section gray">
+
+
+    <div class="section-title">
+
+        <span>08</span>
+
+        <h2>Galeria</h2>
+
+        <p>
+
+            Espaço para mostrar os projetos.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="gallery">
+
+
+        <div class="gallery-item">
+
+            🤖
+
+            <span>
+
+                Robô
+
+            </span>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            🚗
+
+            <span>
+
+                Carrinho
+
+            </span>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            ⚡
+
+            <span>
+
+                Eletrônica
+
+            </span>
+
+        </div>
+
+
+        <div class="gallery-item">
+
+            🧠
+
+            <span>
+
+                Programação
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTATO
+===================================================== -->
+
+<section id="contato"
+         class="section">
+
+
+    <div class="section-title">
+
+        <span>09</span>
+
+        <h2>Contato</h2>
+
+        <p>
+
+            Entre em contato com a oficina.
+
+        </p>
+
+    </div>
+
+
+
+    <form id="contactForm"
+          class="contact-form">
+
+
+        <input
+            type="text"
+            placeholder="Seu nome"
+            required
+        >
+
+
+        <input
+            type="email"
+            placeholder="Seu e-mail"
+            required
+        >
+
+
+        <textarea
+            placeholder="Sua mensagem"
+            required>
+        </textarea>
+
+
+        <button type="submit">
+
+            Enviar mensagem
+
+        </button>
+
+
+    </form>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     RODAPÉ
+===================================================== -->
 
 <footer>
 
-<p>
-© 2026 Oficina de Robótica | Tecnologia e Educação
-</p>
+
+    <div class="footer-content">
+
+
+        <div>
+
+            <h2>
+
+                🤖 RoboLab
+
+            </h2>
+
+            <p>
+
+                Educação, tecnologia e inovação.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+
+                Navegação
+
+            </h3>
+
+            <a href="#inicio">Início</a>
+
+            <a href="#projetos">Projetos</a>
+
+            <a href="#quiz">Quiz</a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+
+                Projeto
+
+            </h3>
+
+            <p>
+
+                Oficina de Robótica
+
+            </p>
+
+            <p>
+
+                Desenvolvido para educação.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 RoboLab - Oficina de Robótica
+
+    </div>
+
 
 </footer>
 
@@ -215,3 +1169,4 @@ CSS
 </body>
 
 </html>
+```
