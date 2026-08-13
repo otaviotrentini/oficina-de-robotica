@@ -1,660 +1,1264 @@
-```javascript
-/* =====================================================
-   OFICINA DE ROBÓTICA
-   JAVASCRIPT
-===================================================== */
+/* ==========================================
+   ROBOLAB
+   JAVASCRIPT PRINCIPAL
+========================================== */
 
 
-/* =====================================================
-   MENU MOBILE
-===================================================== */
+/* ==========================================
+   MENU
+========================================== */
 
-function abrirMenu() {
+const menuButton =
+    document.getElementById("menuButton");
 
-    const navbar =
-        document.querySelector(".navbar");
+const navbar =
+    document.getElementById("navbar");
 
-    navbar.classList.toggle("active");
 
-}
-
-
-
-/* =====================================================
-   MODO ESCURO
-===================================================== */
-
-const themeButton =
-    document.getElementById("themeButton");
-
-
-themeButton.addEventListener("click", function () {
-
-    document.body.classList.toggle("dark");
-
-
-    if (
-        document.body.classList.contains("dark")
-    ) {
-
-        themeButton.textContent = "☀️";
-
-        localStorage.setItem(
-            "tema",
-            "dark"
-        );
-
-    }
-
-    else {
-
-        themeButton.textContent = "🌙";
-
-        localStorage.setItem(
-            "tema",
-            "light"
-        );
-
-    }
-
-});
-
-
-
-/* =====================================================
-   CARREGAR TEMA
-===================================================== */
-
-const temaSalvo =
-    localStorage.getItem("tema");
-
-
-if (temaSalvo === "dark") {
-
-    document.body.classList.add("dark");
-
-    themeButton.textContent = "☀️";
-
-}
-
-
-
-/* =====================================================
-   PROJETOS INICIAIS
-===================================================== */
-
-let projetos = JSON.parse(
-
-    localStorage.getItem("projetosRobotica")
-
-) || [
-
-    {
-
-        id: Date.now(),
-
-        nome:
-        "Robô Seguidor de Linha",
-
-        descricao:
-        "Robô capaz de seguir uma linha utilizando sensores.",
-
-        tecnologia:
-        "Arduino + sensores",
-
-        imagem:
-        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
-
-    },
-
-
-    {
-
-        id: Date.now() + 1,
-
-        nome:
-        "Semáforo Inteligente",
-
-        descricao:
-        "Sistema educativo utilizando LEDs para representar um semáforo.",
-
-        tecnologia:
-        "Arduino + LEDs",
-
-        imagem:
-        "https://images.unsplash.com/photo-1518770660439-4636190af475"
-
-    }
-
-];
-
-
-
-/* =====================================================
-   MOSTRAR PROJETOS
-===================================================== */
-
-function mostrarProjetos(lista = projetos) {
-
-
-    const container =
-        document.getElementById(
-            "listaProjetos"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (lista.length === 0) {
-
-        container.innerHTML = `
-
-            <div class="project">
-
-                <div class="project-content">
-
-                    <h3>
-                        Nenhum projeto encontrado.
-                    </h3>
-
-                    <p>
-                        Adicione seu primeiro projeto!
-                    </p>
-
-                </div>
-
-            </div>
-
-        `;
-
-        atualizarNumeroProjetos();
-
-        return;
-
-    }
-
-
-
-    lista.forEach(function(projeto) {
-
-
-        const article =
-            document.createElement("article");
-
-
-        article.className =
-            "project";
-
-
-        article.innerHTML = `
-
-            <img
-                src="${projeto.imagem || 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e'}"
-                alt="${projeto.nome}"
-            >
-
-
-            <div class="project-content">
-
-                <h3>
-
-                    ${projeto.nome}
-
-                </h3>
-
-
-                <p>
-
-                    ${projeto.descricao}
-
-                </p>
-
-
-                <span class="project-tech">
-
-                    ${projeto.tecnologia}
-
-                </span>
-
-
-                <br>
-
-
-                <button
-                    class="delete-button"
-                    onclick="removerProjeto(${projeto.id})">
-
-                    🗑️ Remover
-
-                </button>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(article);
-
-
-    });
-
-
-    atualizarNumeroProjetos();
-
-}
-
-
-
-/* =====================================================
-   ABRIR FORMULÁRIO
-===================================================== */
-
-function abrirFormulario() {
-
-    const formulario =
-        document.getElementById(
-            "formularioProjeto"
-        );
-
-
-    formulario.classList.remove(
-        "hidden"
-    );
-
-
-    formulario.scrollIntoView({
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-
-/* =====================================================
-   FECHAR FORMULÁRIO
-===================================================== */
-
-function fecharFormulario() {
-
-    document
-        .getElementById(
-            "formularioProjeto"
-        )
-        .classList.add("hidden");
-
-}
-
-
-
-/* =====================================================
-   SALVAR PROJETO
-===================================================== */
-
-function salvarProjeto() {
-
-
-    const nome =
-        document.getElementById(
-            "nomeProjeto"
-        ).value.trim();
-
-
-    const descricao =
-        document.getElementById(
-            "descricaoProjeto"
-        ).value.trim();
-
-
-    const tecnologia =
-        document.getElementById(
-            "tecnologiaProjeto"
-        ).value.trim();
-
-
-    const imagem =
-        document.getElementById(
-            "imagemProjeto"
-        ).value.trim();
-
-
-
-    if (!nome || !descricao) {
-
-        alert(
-            "Preencha o nome e a descrição do projeto."
-        );
-
-        return;
-
-    }
-
-
-
-    const novoProjeto = {
-
-        id: Date.now(),
-
-        nome: nome,
-
-        descricao: descricao,
-
-        tecnologia:
-            tecnologia ||
-            "Tecnologia não informada",
-
-        imagem:
-            imagem ||
-            "https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
-
-    };
-
-
-
-    projetos.push(novoProjeto);
-
-
-    salvarNoNavegador();
-
-
-    mostrarProjetos();
-
-
-    limparFormulario();
-
-
-    fecharFormulario();
-
-
-    alert(
-        "Projeto adicionado com sucesso! 🤖"
-    );
-
-}
-
-
-
-/* =====================================================
-   SALVAR NO LOCAL STORAGE
-===================================================== */
-
-function salvarNoNavegador() {
-
-    localStorage.setItem(
-
-        "projetosRobotica",
-
-        JSON.stringify(projetos)
-
-    );
-
-}
-
-
-
-/* =====================================================
-   LIMPAR FORMULÁRIO
-===================================================== */
-
-function limparFormulario() {
-
-    document.getElementById(
-        "nomeProjeto"
-    ).value = "";
-
-
-    document.getElementById(
-        "descricaoProjeto"
-    ).value = "";
-
-
-    document.getElementById(
-        "tecnologiaProjeto"
-    ).value = "";
-
-
-    document.getElementById(
-        "imagemProjeto"
-    ).value = "";
-
-}
-
-
-
-/* =====================================================
-   REMOVER PROJETO
-===================================================== */
-
-function removerProjeto(id) {
-
-
-    const confirmar =
-        confirm(
-            "Deseja realmente remover este projeto?"
-        );
-
-
-    if (!confirmar) {
-
-        return;
-
-    }
-
-
-    projetos =
-        projetos.filter(
-            projeto =>
-                projeto.id !== id
-        );
-
-
-    salvarNoNavegador();
-
-
-    mostrarProjetos();
-
-}
-
-
-
-/* =====================================================
-   PESQUISA
-===================================================== */
-
-const pesquisa =
-    document.getElementById(
-        "pesquisaProjeto"
-    );
-
-
-pesquisa.addEventListener(
-    "input",
+menuButton.addEventListener(
+    "click",
     function () {
 
-
-        const termo =
-            pesquisa.value
-            .toLowerCase()
-            .trim();
-
-
-        const resultado =
-            projetos.filter(
-                projeto =>
-
-                    projeto.nome
-                        .toLowerCase()
-                        .includes(termo)
-
-                    ||
-
-                    projeto.descricao
-                        .toLowerCase()
-                        .includes(termo)
-
-                    ||
-
-                    projeto.tecnologia
-                        .toLowerCase()
-                        .includes(termo)
-
-            );
-
-
-        mostrarProjetos(resultado);
+        navbar.classList.toggle("open");
 
     }
 );
 
 
+/* ==========================================
+   NAVEGAÇÃO ENTRE ABAS
+========================================== */
 
-/* =====================================================
-   CONTADOR
-===================================================== */
+const navButtons =
+    document.querySelectorAll(
+        ".nav-button"
+    );
 
-function atualizarNumeroProjetos() {
+
+const sections =
+    document.querySelectorAll(
+        ".page-section"
+    );
 
 
-    const contador =
-        document.getElementById(
-            "numeroProjetos"
+function abrirSecao(nome) {
+
+    sections.forEach(
+        function (section) {
+
+            section.classList.remove(
+                "active-section"
+            );
+
+        }
+    );
+
+
+    const secao =
+        document.getElementById(nome);
+
+
+    if (secao) {
+
+        secao.classList.add(
+            "active-section"
         );
 
-
-    if (contador) {
-
-        contador.textContent =
-            projetos.length;
-
     }
+
+
+    navButtons.forEach(
+        function (button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+            if (
+                button.dataset.section
+                === nome
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    navbar.classList.remove("open");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
 }
 
 
+navButtons.forEach(
+    function (button) {
 
-/* =====================================================
-   CONTEÚDO DAS AULAS
-===================================================== */
+        button.addEventListener(
+            "click",
+            function () {
 
-function mostrarAula(tipo) {
+                abrirSecao(
+                    button.dataset.section
+                );
+
+            }
+        );
+
+    }
+);
 
 
-    const box =
-        document.getElementById(
-            "aulaInfo"
+/* ==========================================
+   BOTÕES DA PÁGINA INICIAL
+========================================== */
+
+document
+    .getElementById("startButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            abrirSecao("aulas");
+
+        }
+    );
+
+
+document
+    .getElementById("projectsButton")
+    .addEventListener(
+        "click",
+        function () {
+
+            abrirSecao("projetos");
+
+        }
+    );
+
+
+/* ==========================================
+   MODO ESCURO
+========================================== */
+
+const themeButton =
+    document.getElementById(
+        "themeButton"
+    );
+
+
+themeButton.addEventListener(
+    "click",
+    function () {
+
+        document.body.classList.toggle(
+            "dark"
         );
 
 
-    const aulas = {
+        if (
+            document.body.classList.contains(
+                "dark"
+            )
+        ) {
 
+            themeButton.textContent =
+                "☀️";
 
-        programacao: {
+            localStorage.setItem(
+                "tema",
+                "dark"
+            );
 
-            titulo:
-                "💻 Programação",
+        } else {
 
-            texto:
-                "Nesta aula os alunos aprendem lógica, variáveis, condições, repetições e funções."
+            themeButton.textContent =
+                "🌙";
 
-        },
-
-
-        eletronica: {
-
-            titulo:
-                "⚡ Eletrônica",
-
-            texto:
-                "Aprendemos sobre LEDs, resistores, sensores, motores, alimentação e circuitos."
-
-        },
-
-
-        robotica: {
-
-            titulo:
-                "🤖 Robótica",
-
-            texto:
-                "Nesta etapa os conhecimentos de programação e eletrônica são utilizados para construir robôs."
+            localStorage.setItem(
+                "tema",
+                "light"
+            );
 
         }
 
-    };
+    }
+);
 
 
-    box.innerHTML = `
+if (
+    localStorage.getItem("tema")
+    === "dark"
+) {
 
-        <h3>
+    document.body.classList.add("dark");
 
-            ${aulas[tipo].titulo}
+    themeButton.textContent =
+        "☀️";
 
-        </h3>
+}
 
+
+/* ==========================================
+   AULAS
+========================================== */
+
+const lessonButtons =
+    document.querySelectorAll(
+        ".lesson-button"
+    );
+
+
+const lessonContent =
+    document.getElementById(
+        "lessonContent"
+    );
+
+
+const aulas = {
+
+    programacao: {
+
+        titulo:
+            "💻 Programação",
+
+        texto:
+            "Nesta aula você aprende lógica de programação, variáveis, condições, repetição e funções. Esses conhecimentos são importantes para programar robôs e sistemas automatizados."
+
+    },
+
+
+    eletronica: {
+
+        titulo:
+            "⚡ Eletrônica",
+
+        texto:
+            "Você aprenderá sobre LEDs, resistores, sensores, motores, fios, protoboard e circuitos elétricos básicos."
+
+    },
+
+
+    robotica: {
+
+        titulo:
+            "🤖 Robótica",
+
+        texto:
+            "A robótica reúne programação, eletrônica e mecânica. Nesta aula você aprende como transformar essas áreas em projetos funcionais."
+
+    },
+
+
+    inteligencia: {
+
+        titulo:
+            "🧠 Sistemas Inteligentes",
+
+        texto:
+            "Sensores permitem que um projeto perceba o ambiente. Com programação, podemos fazer o sistema tomar decisões de acordo com essas informações."
+
+    }
+
+};
+
+
+lessonButtons.forEach(
+    function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const tipo =
+                    button.dataset.lesson;
+
+
+                const aula =
+                    aulas[tipo];
+
+
+                lessonContent.innerHTML = `
+
+                    <h3>
+                        ${aula.titulo}
+                    </h3>
+
+                    <p>
+                        ${aula.texto}
+                    </p>
+
+                `;
+
+
+                lessonContent.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    }
+);
+
+
+/* ==========================================
+   PROJETOS
+========================================== */
+
+const newProjectButton =
+    document.getElementById(
+        "newProjectButton"
+    );
+
+
+const projectForm =
+    document.getElementById(
+        "projectForm"
+    );
+
+
+const cancelProjectButton =
+    document.getElementById(
+        "cancelProjectButton"
+    );
+
+
+newProjectButton.addEventListener(
+    "click",
+    function () {
+
+        projectForm.classList.remove(
+            "hidden"
+        );
+
+        projectForm.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+);
+
+
+cancelProjectButton.addEventListener(
+    "click",
+    function () {
+
+        projectForm.classList.add(
+            "hidden"
+        );
+
+        limparFormulario();
+
+    }
+);
+
+
+/* ==========================================
+   IMAGEM
+========================================== */
+
+const projectImage =
+    document.getElementById(
+        "projectImage"
+    );
+
+
+const imagePreview =
+    document.getElementById(
+        "imagePreview"
+    );
+
+
+const imagePreviewContainer =
+    document.getElementById(
+        "imagePreviewContainer"
+    );
+
+
+let imagemAtual = "";
+
+
+projectImage.addEventListener(
+    "change",
+    function () {
+
+        const arquivo =
+            projectImage.files[0];
+
+
+        if (!arquivo) {
+
+            imagemAtual = "";
+
+            imagePreviewContainer
+                .classList
+                .add("hidden");
+
+            return;
+
+        }
+
+
+        if (
+            !arquivo.type.startsWith(
+                "image/"
+            )
+        ) {
+
+            alert(
+                "Escolha uma imagem válida."
+            );
+
+            projectImage.value = "";
+
+            return;
+
+        }
+
+
+        const leitor =
+            new FileReader();
+
+
+        leitor.onload =
+            function (evento) {
+
+                imagemAtual =
+                    evento.target.result;
+
+
+                imagePreview.src =
+                    imagemAtual;
+
+
+                imagePreviewContainer
+                    .classList
+                    .remove("hidden");
+
+            };
+
+
+        leitor.readAsDataURL(
+            arquivo
+        );
+
+    }
+);
+
+
+/* ==========================================
+   BANCO DE PROJETOS
+========================================== */
+
+let projetos =
+    JSON.parse(
+        localStorage.getItem(
+            "projetosRoboLab"
+        )
+    ) || [];
+
+
+/* ==========================================
+   SALVAR PROJETOS
+========================================== */
+
+function salvarProjetos() {
+
+    localStorage.setItem(
+        "projetosRoboLab",
+        JSON.stringify(projetos)
+    );
+
+}
+
+
+/* ==========================================
+   MOSTRAR PROJETOS
+========================================== */
+
+const projectGrid =
+    document.getElementById(
+        "projectGrid"
+    );
+
+
+function mostrarProjetos(
+    lista = projetos
+) {
+
+    projectGrid.innerHTML = "";
+
+
+    if (lista.length === 0) {
+
+        projectGrid.innerHTML = `
+
+            <div class="content-box">
+
+                <h3>
+                    🤖 Nenhum projeto cadastrado
+                </h3>
+
+                <p>
+                    Clique em "+ Novo projeto"
+                    para cadastrar seu primeiro projeto.
+                </p>
+
+            </div>
+
+        `;
+
+        atualizarEstatistica();
+
+        return;
+
+    }
+
+
+    lista.forEach(
+        function (projeto) {
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "project-card";
+
+
+            if (projeto.imagem) {
+
+                card.innerHTML += `
+
+                    <img
+                        src="${projeto.imagem}"
+                        alt="${projeto.nome}">
+
+                `;
+
+            } else {
+
+                card.innerHTML += `
+
+                    <div class="project-placeholder">
+                        🤖
+                    </div>
+
+                `;
+
+            }
+
+
+            card.innerHTML += `
+
+                <div class="project-content">
+
+                    <h3>
+                        ${projeto.nome}
+                    </h3>
+
+                    <p>
+                        ${projeto.descricao}
+                    </p>
+
+                    <span class="project-tag">
+                        ${projeto.tecnologia}
+                    </span>
+
+                    <br>
+
+                    <button
+                        class="delete-project"
+                        data-id="${projeto.id}">
+
+                        🗑️ Excluir
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            projectGrid.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    document
+        .querySelectorAll(
+            ".delete-project"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        excluirProjeto(
+                            Number(
+                                button.dataset.id
+                            )
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    atualizarEstatistica();
+
+}
+
+
+/* ==========================================
+   SALVAR NOVO PROJETO
+========================================== */
+
+const saveProjectButton =
+    document.getElementById(
+        "saveProjectButton"
+    );
+
+
+saveProjectButton.addEventListener(
+    "click",
+    function () {
+
+        const nome =
+            document.getElementById(
+                "projectName"
+            ).value.trim();
+
+
+        const tecnologia =
+            document.getElementById(
+                "projectTech"
+            ).value.trim();
+
+
+        const descricao =
+            document.getElementById(
+                "projectDescription"
+            ).value.trim();
+
+
+        if (!nome) {
+
+            alert(
+                "Digite o nome do projeto."
+            );
+
+            return;
+
+        }
+
+
+        if (!descricao) {
+
+            alert(
+                "Digite uma descrição."
+            );
+
+            return;
+
+        }
+
+
+        const novoProjeto = {
+
+            id:
+                Date.now(),
+
+            nome:
+                nome,
+
+            tecnologia:
+                tecnologia ||
+                "Robótica",
+
+            descricao:
+                descricao,
+
+            imagem:
+                imagemAtual
+
+        };
+
+
+        projetos.push(
+            novoProjeto
+        );
+
+
+        salvarProjetos();
+
+        mostrarProjetos();
+
+        limparFormulario();
+
+
+        projectForm.classList.add(
+            "hidden"
+        );
+
+
+        alert(
+            "✅ Projeto salvo com sucesso!"
+        );
+
+    }
+);
+
+
+/* ==========================================
+   LIMPAR FORMULÁRIO
+========================================== */
+
+function limparFormulario() {
+
+    document.getElementById(
+        "projectName"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectTech"
+    ).value = "";
+
+
+    document.getElementById(
+        "projectDescription"
+    ).value = "";
+
+
+    projectImage.value = "";
+
+
+    imagemAtual = "";
+
+
+    imagePreview.src = "";
+
+
+    imagePreviewContainer
+        .classList
+        .add("hidden");
+
+}
+
+
+/* ==========================================
+   EXCLUIR
+========================================== */
+
+function excluirProjeto(id) {
+
+    const confirmar =
+        confirm(
+            "Deseja excluir este projeto?"
+        );
+
+
+    if (!confirmar) {
+        return;
+    }
+
+
+    projetos =
+        projetos.filter(
+            function (projeto) {
+
+                return projeto.id !== id;
+
+            }
+        );
+
+
+    salvarProjetos();
+
+    mostrarProjetos();
+
+}
+
+
+/* ==========================================
+   PESQUISA
+========================================== */
+
+const searchProject =
+    document.getElementById(
+        "searchProject"
+    );
+
+
+searchProject.addEventListener(
+    "input",
+    function () {
+
+        const pesquisa =
+            searchProject.value
+                .toLowerCase();
+
+
+        const resultados =
+            projetos.filter(
+                function (projeto) {
+
+                    return (
+
+                        projeto.nome
+                            .toLowerCase()
+                            .includes(
+                                pesquisa
+                            )
+
+                        ||
+
+                        projeto.tecnologia
+                            .toLowerCase()
+                            .includes(
+                                pesquisa
+                            )
+
+                        ||
+
+                        projeto.descricao
+                            .toLowerCase()
+                            .includes(
+                                pesquisa
+                            )
+
+                    );
+
+                }
+            );
+
+
+        mostrarProjetos(
+            resultados
+        );
+
+    }
+);
+
+
+/* ==========================================
+   ESTATÍSTICA
+========================================== */
+
+function atualizarEstatistica() {
+
+    document.getElementById(
+        "totalProjetos"
+    ).textContent =
+        projetos.length;
+
+}
+
+
+/* ==========================================
+   QUIZ
+========================================== */
+
+const perguntas = [
+
+    {
+        pergunta:
+            "Qual componente emite luz?",
+
+        opcoes:
+            [
+                "LED",
+                "Sensor",
+                "Motor",
+                "Jumper"
+            ],
+
+        resposta:
+            "LED"
+    },
+
+
+    {
+        pergunta:
+            "Qual placa é muito usada em robótica educacional?",
+
+        opcoes:
+            [
+                "Arduino",
+                "Monitor",
+                "Teclado",
+                "Mouse"
+            ],
+
+        resposta:
+            "Arduino"
+    },
+
+
+    {
+        pergunta:
+            "Qual componente detecta informações do ambiente?",
+
+        opcoes:
+            [
+                "Sensor",
+                "LED",
+                "Resistor",
+                "Jumper"
+            ],
+
+        resposta:
+            "Sensor"
+    },
+
+
+    {
+        pergunta:
+            "Qual linguagem é usada para adicionar interatividade a páginas web?",
+
+        opcoes:
+            [
+                "JavaScript",
+                "HTML",
+                "CSS",
+                "Arduino"
+            ],
+
+        resposta:
+            "JavaScript"
+    },
+
+
+    {
+        pergunta:
+            "Qual componente pode movimentar um robô?",
+
+        opcoes:
+            [
+                "Motor",
+                "LED",
+                "Resistor",
+                "Protoboard"
+            ],
+
+        resposta:
+            "Motor"
+    }
+
+];
+
+
+let perguntaAtual = 0;
+
+let pontos = 0;
+
+let respondeu = false;
+
+
+const quizNumber =
+    document.getElementById(
+        "quizNumber"
+    );
+
+
+const quizScore =
+    document.getElementById(
+        "quizScore"
+    );
+
+
+const quizQuestion =
+    document.getElementById(
+        "quizQuestion"
+    );
+
+
+const quizOptions =
+    document.getElementById(
+        "quizOptions"
+    );
+
+
+const quizFeedback =
+    document.getElementById(
+        "quizFeedback"
+    );
+
+
+const nextQuestion =
+    document.getElementById(
+        "nextQuestion"
+    );
+
+
+function carregarPergunta() {
+
+    const pergunta =
+        perguntas[
+            perguntaAtual
+        ];
+
+
+    respondeu = false;
+
+
+    quizNumber.textContent =
+        `Pergunta ${perguntaAtual + 1} de ${perguntas.length}`;
+
+
+    quizScore.textContent =
+        `Pontos: ${pontos}`;
+
+
+    quizQuestion.textContent =
+        pergunta.pergunta;
+
+
+    quizOptions.innerHTML =
+        "";
+
+
+    quizFeedback.textContent =
+        "";
+
+
+    nextQuestion.classList.add(
+        "hidden"
+    );
+
+
+    pergunta.opcoes.forEach(
+        function (opcao) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "quiz-option";
+
+
+            button.textContent =
+                opcao;
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    responder(
+                        opcao,
+                        button
+                    );
+
+                }
+            );
+
+
+            quizOptions.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+function responder(
+    resposta,
+    botao
+) {
+
+    if (respondeu) {
+        return;
+    }
+
+
+    respondeu = true;
+
+
+    const pergunta =
+        perguntas[
+            perguntaAtual
+        ];
+
+
+    const botoes =
+        document.querySelectorAll(
+            ".quiz-option"
+        );
+
+
+    botoes.forEach(
+        function (item) {
+
+            item.disabled = true;
+
+
+            if (
+                item.textContent
+                === pergunta.resposta
+            ) {
+
+                item.classList.add(
+                    "correct"
+                );
+
+            }
+
+        }
+    );
+
+
+    if (
+        resposta
+        === pergunta.resposta
+    ) {
+
+        pontos += 10;
+
+
+        botao.classList.add(
+            "correct"
+        );
+
+
+        quizFeedback.textContent =
+            "✅ Resposta correta! +10 pontos";
+
+    } else {
+
+        botao.classList.add(
+            "wrong"
+        );
+
+
+        quizFeedback.textContent =
+            "❌ Resposta incorreta.";
+
+    }
+
+
+    quizScore.textContent =
+        `Pontos: ${pontos}`;
+
+
+    nextQuestion.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+nextQuestion.addEventListener(
+    "click",
+    function () {
+
+        perguntaAtual++;
+
+
+        if (
+            perguntaAtual
+            >= perguntas.length
+        ) {
+
+            finalizarQuiz();
+
+        } else {
+
+            carregarPergunta();
+
+        }
+
+    }
+);
+
+
+function finalizarQuiz() {
+
+    quizNumber.textContent =
+        "Resultado final";
+
+
+    quizQuestion.textContent =
+        "🏆 Quiz concluído!";
+
+
+    quizOptions.innerHTML =
+        "";
+
+
+    quizFeedback.innerHTML = `
+
+        <h2>
+            Você fez ${pontos} pontos!
+        </h2>
 
         <p>
-
-            ${aulas[tipo].texto}
-
+            Parabéns por completar o desafio.
         </p>
+
+        <button
+            id="restartQuiz"
+            class="primary-button">
+
+            🔄 Jogar novamente
+
+        </button>
 
     `;
 
 
-    box.style.display =
-        "block";
-
-}
-
+    nextQuestion.classList.add(
+        "hidden"
+    );
 
 
-/* =====================================================
-   QUIZ
-===================================================== */
+    document
+        .getElementById(
+            "restartQuiz"
+        )
+        .addEventListener(
+            "click",
+            function () {
 
-function responder(resposta) {
+                perguntaAtual = 0;
 
+                pontos = 0;
 
-    const resultado =
-        document.getElementById(
-            "resultadoQuiz"
+                carregarPergunta();
+
+            }
         );
 
-
-    if (resposta === "LED") {
-
-
-        resultado.textContent =
-            "✅ Correto! O LED é um componente que pode emitir luz.";
-
-
-        resultado.style.color =
-            "green";
-
-
-    }
-
-    else {
-
-
-        resultado.textContent =
-            "❌ Resposta incorreta. Tente novamente!";
-
-
-        resultado.style.color =
-            "red";
-
-    }
-
 }
 
 
-
-/* =====================================================
+/* ==========================================
    FORMULÁRIO DE CONTATO
-===================================================== */
+========================================== */
 
 const contactForm =
     document.getElementById(
@@ -664,14 +1268,19 @@ const contactForm =
 
 contactForm.addEventListener(
     "submit",
-    function(event) {
+    function (evento) {
+
+        evento.preventDefault();
 
 
-        event.preventDefault();
+        const nome =
+            document.getElementById(
+                "contactName"
+            ).value;
 
 
         alert(
-            "Mensagem enviada com sucesso! 🤖"
+            `📩 Obrigado, ${nome}! Sua mensagem foi registrada.`
         );
 
 
@@ -681,26 +1290,12 @@ contactForm.addEventListener(
 );
 
 
-
-/* =====================================================
+/* ==========================================
    INICIALIZAÇÃO
-===================================================== */
+========================================== */
 
 mostrarProjetos();
 
+atualizarEstatistica();
 
-atualizarNumeroProjetos();
-```
-const botao =
-    document.getElementById("meuBotao");
-
-botao.addEventListener(
-    "click",
-    function () {
-
-        alert(
-            "Olá! O botão está funcionando!"
-        );
-
-    }
-);
+carregarPergunta();
