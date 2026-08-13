@@ -691,3 +691,16 @@ mostrarProjetos();
 
 atualizarNumeroProjetos();
 ```
+const botao =
+    document.getElementById("meuBotao");
+
+botao.addEventListener(
+    "click",
+    function () {
+
+        alert(
+            "Olá! O botão está funcionando!"
+        );
+
+    }
+);
