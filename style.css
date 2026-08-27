@@ -915,3 +915,89 @@ body.dark .project-content p {
     }
 
 }
+/* =====================================
+   UPLOAD DE IMAGEM
+===================================== */
+
+.image-upload {
+    margin-top: 15px;
+}
+
+.upload-button {
+    display: inline-block;
+
+    padding: 14px 20px;
+
+    background: #087f8c;
+
+    color: white;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.upload-button:hover {
+    background: #066974;
+
+    transform: translateY(-2px);
+}
+
+
+/* Área da imagem */
+
+.image-preview {
+    margin-top: 20px;
+
+    padding: 20px;
+
+    background: #f4f7fb;
+
+    border-radius: 15px;
+
+    text-align: center;
+}
+
+.image-preview h4 {
+    margin-bottom: 15px;
+}
+
+
+/* Imagem escolhida */
+
+.image-preview img {
+    display: block;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    height: 280px;
+
+    object-fit: contain;
+
+    margin: auto;
+
+    border-radius: 12px;
+
+    background: white;
+
+    border: 2px solid #d9e1e8;
+}
+
+
+/* Modo escuro */
+
+body.dark .image-preview {
+    background: #101a27;
+}
+
+body.dark .image-preview img {
+    background: #162231;
+
+    border-color: #344254;
+}

@@ -453,27 +453,30 @@
                 <label>
                     Imagem
                 </label>
+<div class="image-upload">
 
-                <input
-                    id="projectImage"
-                    type="file"
-                    accept="image/*">
+    <label for="projectImage" class="upload-button">
+        📷 Escolher imagem do projeto
+    </label>
 
+    <input
+        id="projectImage"
+        type="file"
+        accept="image/png, image/jpeg, image/jpg, image/webp"
+        hidden>
 
-                <div
-                    id="imagePreviewContainer"
-                    class="image-preview hidden">
+    <div id="imagePreviewContainer" class="image-preview hidden">
 
-                    <p>
-                        Pré-visualização
-                    </p>
+        <h4>Imagem selecionada:</h4>
 
-                    <img
-                        id="imagePreview"
-                        src=""
-                        alt="Imagem do projeto">
+        <img
+            id="imagePreview"
+            src=""
+            alt="Pré-visualização do projeto">
 
-                </div>
+    </div>
+
+</div>
 
 
                 <div class="form-buttons">

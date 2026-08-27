@@ -363,20 +363,14 @@ cancelProjectButton.addEventListener(
 
 
 /* ==========================================
-   IMAGEM
+   IMAGEM DO PROJETO
 ========================================== */
 
 const projectImage =
-    document.getElementById(
-        "projectImage"
-    );
-
+    document.getElementById("projectImage");
 
 const imagePreview =
-    document.getElementById(
-        "imagePreview"
-    );
-
+    document.getElementById("imagePreview");
 
 const imagePreviewContainer =
     document.getElementById(
@@ -384,17 +378,24 @@ const imagePreviewContainer =
     );
 
 
+// Guarda a imagem selecionada
 let imagemAtual = "";
 
+
+/*
+    Quando o usuário escolher uma imagem,
+    este código será executado.
+*/
 
 projectImage.addEventListener(
     "change",
     function () {
 
         const arquivo =
-            projectImage.files[0];
+            this.files[0];
 
 
+        // Se nenhum arquivo foi escolhido
         if (!arquivo) {
 
             imagemAtual = "";
@@ -408,22 +409,25 @@ projectImage.addEventListener(
         }
 
 
-        if (
-            !arquivo.type.startsWith(
-                "image/"
-            )
-        ) {
+        // Verifica se é realmente uma imagem
+        if (!arquivo.type.startsWith("image/")) {
 
             alert(
-                "Escolha uma imagem válida."
+                "Por favor, escolha uma imagem."
             );
 
-            projectImage.value = "";
+            this.value = "";
 
             return;
 
         }
 
+
+        /*
+            FileReader transforma a imagem
+            em um formato que o navegador
+            consegue mostrar na página.
+        */
 
         const leitor =
             new FileReader();
@@ -432,14 +436,17 @@ projectImage.addEventListener(
         leitor.onload =
             function (evento) {
 
+                // Guarda a imagem
                 imagemAtual =
                     evento.target.result;
 
 
+                // Coloca a imagem na tela
                 imagePreview.src =
                     imagemAtual;
 
 
+                // Mostra a área de pré-visualização
                 imagePreviewContainer
                     .classList
                     .remove("hidden");
@@ -447,14 +454,21 @@ projectImage.addEventListener(
             };
 
 
-        leitor.readAsDataURL(
-            arquivo
-        );
+        leitor.onerror =
+            function () {
+
+                alert(
+                    "Não foi possível carregar a imagem."
+                );
+
+            };
+
+
+        // Lê a imagem
+        leitor.readAsDataURL(arquivo);
 
     }
 );
-
-
 /* ==========================================
    BANCO DE PROJETOS
 ========================================== */
