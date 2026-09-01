@@ -1313,3 +1313,16 @@ mostrarProjetos();
 atualizarEstatistica();
 
 carregarPergunta();
+let video = document.createElement("video");
+
+video.controls = true;
+video.style.width = "100%";
+
+let source = document.createElement("source");
+
+source.src = project.video;
+source.type = "video/mp4";
+
+video.appendChild(source);
+
+card.appendChild(video);
