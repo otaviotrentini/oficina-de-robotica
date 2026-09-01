@@ -1,784 +1,2330 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <title>RoboLab - Oficina de Robótica</title>
 
-    <title>Oficina de Robótica</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --border: #dbe2ea;
+            --danger: #dc2626;
+            --success: #16a34a;
+        }
+
+        body.dark {
+            --bg: #111827;
+            --card: #1f2937;
+            --text: #f9fafb;
+            --muted: #cbd5e1;
+            --primary: #60a5fa;
+            --primary-dark: #3b82f6;
+            --border: #374151;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: 0.3s;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-button,
+        .theme-button,
+        .menu-button {
+            background: transparent;
+            color: var(--text);
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .nav-button:hover,
+        .nav-button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-button {
+            font-size: 18px;
+        }
+
+        .menu-button {
+            display: none;
+            font-size: 22px;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .page-section {
+            display: none;
+            padding: 60px 0;
+            min-height: 70vh;
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            max-width: 650px;
+        }
+
+        .small-title,
+        .section-title span {
+            color: var(--primary);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 75px);
+            margin: 15px 0;
+            line-height: 1;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        h2 {
+            font-size: 38px;
+            margin: 10px 0 15px;
+        }
+
+        h3 {
+            margin: 10px 0;
+        }
+
+        p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .hero-buttons,
+        .form-buttons,
+        .project-tools {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons {
+            margin-top: 25px;
+        }
+
+        .primary-button,
+        .secondary-button,
+        .link-button,
+        .delete-button {
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .primary-button {
+            background: var(--primary);
+            color: white;
+        }
+
+        .primary-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .secondary-button:hover {
+            border-color: var(--primary);
+        }
+
+        .link-button {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--primary);
+            color: white;
+            margin-top: 12px;
+        }
+
+        .link-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .delete-button {
+            background: var(--danger);
+            color: white;
+            margin-top: 12px;
+        }
+
+        .robot-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 130px;
+            background: var(--card);
+            border: 3px solid var(--primary);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stat-card,
+        .content-box,
+        .lesson-card,
+        .component-card,
+        .quiz-box,
+        .project-card,
+        .project-form {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .content-box {
+            margin-top: 25px;
+        }
+
+        .section-title {
+            margin-bottom: 30px;
+        }
+
+        .lesson-grid,
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .lesson-card,
+        .component-card {
+            transition: 0.2s;
+        }
+
+        .lesson-card:hover,
+        .component-card:hover,
+        .project-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .icon {
+            font-size: 45px;
+        }
+
+        .lesson-button {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 7px;
+            margin-top: 15px;
+        }
+
+        .lesson-content {
+            margin-top: 25px;
+            padding: 25px;
+            border-left: 5px solid var(--primary);
+            background: var(--card);
+            border-radius: 10px;
+        }
+
+        .project-tools {
+            margin-bottom: 20px;
+        }
+
+        .project-tools input {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--text);
+            margin-top: 7px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--primary);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .project-form {
+            margin-bottom: 25px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .image-upload {
+            margin-top: 5px;
+        }
+
+        .upload-button {
+            display: inline-block;
+            padding: 12px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .image-preview {
+            border: 1px dashed var(--border);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .image-preview img {
+            display: block;
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .project-card .technology {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 8px 0;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-box {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .quiz-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .quiz-option {
+            width: 100%;
+            text-align: left;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin: 7px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+        }
+
+        .quiz-option.correct {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #16a34a;
+        }
+
+        .quiz-option.wrong {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #dc2626;
+        }
+
+        .quiz-feedback {
+            margin: 15px 0;
+            min-height: 25px;
+            font-weight: bold;
+        }
+
+        .contact-form {
+            max-width: 650px;
+            margin: auto;
+            background: var(--card);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        footer {
+            text-align: center;
+            padding: 35px;
+            border-top: 1px solid var(--border);
+            background: var(--card);
+            margin-top: 30px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 900px) {
+            .stats,
+            .lesson-grid,
+            .component-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                flex-wrap: wrap;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                margin-top: 10px;
+            }
+
+            nav.open {
+                display: flex;
+            }
+
+            .nav-button {
+                width: 100%;
+            }
+
+            .stats,
+            .lesson-grid,
+            .component-grid,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .robot-image {
+                width: 220px;
+                height: 220px;
+                font-size: 90px;
+            }
+
+            h2 {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- =========================
-         CABEÇALHO
-    ========================== -->
+<header>
 
-    <header>
+    <div class="logo">
+        🤖 RoboLab
+    </div>
 
-        <div class="logo">
-            🤖 RoboLab
-        </div>
+    <button id="menuButton" class="menu-button">
+        ☰
+    </button>
 
-        <button
-            id="menuButton"
-            class="menu-button">
-            ☰
+    <nav id="navbar">
+
+        <button class="nav-button active" data-section="inicio">
+            🏠 Início
         </button>
 
-        <nav id="navbar">
-
-            <button
-                class="nav-button active"
-                data-section="inicio">
-                🏠 Início
-            </button>
+        <button class="nav-button" data-section="aulas">
+            📚 Aulas
+        </button>
 
-            <button
-                class="nav-button"
-                data-section="aulas">
-                📚 Aulas
-            </button>
+        <button class="nav-button" data-section="projetos">
+            🤖 Projetos
+        </button>
 
-            <button
-                class="nav-button"
-                data-section="projetos">
-                🤖 Projetos
-            </button>
+        <button class="nav-button" data-section="quiz">
+            🧠 Quiz
+        </button>
 
-            <button
-                class="nav-button"
-                data-section="quiz">
-                🧠 Quiz
-            </button>
+        <button class="nav-button" data-section="componentes">
+            ⚙️ Componentes
+        </button>
 
-            <button
-                class="nav-button"
-                data-section="componentes">
-                ⚙️ Componentes
-            </button>
+        <button class="nav-button" data-section="contato">
+            📩 Contato
+        </button>
 
-            <button
-                class="nav-button"
-                data-section="contato">
-                📩 Contato
-            </button>
+        <button id="themeButton" class="theme-button">
+            🌙
+        </button>
 
-            <button
-                id="themeButton"
-                class="theme-button">
-                🌙
-            </button>
+    </nav>
 
-        </nav>
+</header>
 
-    </header>
 
+<main>
 
-    <!-- =========================
-         INÍCIO
-    ========================== -->
+<!-- INÍCIO -->
 
-    <main>
+<section id="inicio" class="page-section active-section">
 
-        <section
-            id="inicio"
-            class="page-section active-section">
+    <div class="hero">
 
-            <div class="hero">
+        <div class="hero-text">
 
-                <div class="hero-text">
+            <span class="small-title">
+                OFICINA DE ROBÓTICA
+            </span>
 
-                    <span class="small-title">
-                        OFICINA DE ROBÓTICA
-                    </span>
+            <h1>
+                Aprenda.
+                <span>Crie.</span>
+                Programe.
+            </h1>
 
-                    <h1>
-                        Aprenda.
-                        <span>Crie.</span>
-                        Programe.
-                    </h1>
+            <p>
+                Um espaço educativo para aprender robótica,
+                programação, eletrônica e tecnologia através
+                de projetos.
+            </p>
 
-                    <p>
-                        Um espaço educativo para aprender
-                        robótica, programação, eletrônica
-                        e tecnologia através de projetos.
-                    </p>
+            <div class="hero-buttons">
 
-                    <div class="hero-buttons">
+                <button id="startButton" class="primary-button">
+                    🚀 Começar agora
+                </button>
 
-                        <button
-                            id="startButton"
-                            class="primary-button">
-                            🚀 Começar agora
-                        </button>
-
-                        <button
-                            id="projectsButton"
-                            class="secondary-button">
-                            🤖 Ver projetos
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="robot-image">
-                    🤖
-                </div>
-
-            </div>
-
-
-            <!-- ESTATÍSTICAS -->
-
-            <div class="stats">
-
-                <div class="stat-card">
-
-                    <strong id="totalProjetos">
-                        0
-                    </strong>
-
-                    <span>
-                        Projetos
-                    </span>
-
-                </div>
-
-                <div class="stat-card">
-
-                    <strong>
-                        12
-                    </strong>
-
-                    <span>
-                        Aulas
-                    </span>
-
-                </div>
-
-                <div class="stat-card">
-
-                    <strong>
-                        8
-                    </strong>
-
-                    <span>
-                        Desafios
-                    </span>
-
-                </div>
-
-                <div class="stat-card">
-
-                    <strong>
-                        100%
-                    </strong>
-
-                    <span>
-                        Criatividade
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- SOBRE -->
-
-            <div class="content-box">
-
-                <span class="small-title">
-                    SOBRE A OFICINA
-                </span>
-
-                <h2>
-                    Tecnologia na prática
-                </h2>
-
-                <p>
-                    A Oficina de Robótica é um ambiente
-                    educativo onde os alunos podem aprender
-                    programação, eletrônica e robótica
-                    construindo seus próprios projetos.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             AULAS
-        ========================== -->
-
-        <section
-            id="aulas"
-            class="page-section">
-
-            <div class="section-title">
-
-                <span>
-                    APRENDIZADO
-                </span>
-
-                <h2>
-                    Aulas de Robótica
-                </h2>
-
-                <p>
-                    Escolha um assunto para começar.
-                </p>
-
-            </div>
-
-
-            <div class="lesson-grid">
-
-                <article class="lesson-card">
-
-                    <div class="icon">
-                        💻
-                    </div>
-
-                    <h3>
-                        Programação
-                    </h3>
-
-                    <p>
-                        Aprenda lógica, variáveis,
-                        condições, funções e comandos.
-                    </p>
-
-                    <button
-                        class="lesson-button"
-                        data-lesson="programacao">
-
-                        Ver aula
-
-                    </button>
-
-                </article>
-
-
-                <article class="lesson-card">
-
-                    <div class="icon">
-                        ⚡
-                    </div>
-
-                    <h3>
-                        Eletrônica
-                    </h3>
-
-                    <p>
-                        Conheça LEDs, resistores,
-                        sensores, motores e circuitos.
-                    </p>
-
-                    <button
-                        class="lesson-button"
-                        data-lesson="eletronica">
-
-                        Ver aula
-
-                    </button>
-
-                </article>
-
-
-                <article class="lesson-card">
-
-                    <div class="icon">
-                        🤖
-                    </div>
-
-                    <h3>
-                        Robótica
-                    </h3>
-
-                    <p>
-                        Aprenda como juntar eletrônica
-                        e programação para criar robôs.
-                    </p>
-
-                    <button
-                        class="lesson-button"
-                        data-lesson="robotica">
-
-                        Ver aula
-
-                    </button>
-
-                </article>
-
-
-                <article class="lesson-card">
-
-                    <div class="icon">
-                        🧠
-                    </div>
-
-                    <h3>
-                        Inteligência
-                    </h3>
-
-                    <p>
-                        Explore sensores e sistemas
-                        automatizados.
-                    </p>
-
-                    <button
-                        class="lesson-button"
-                        data-lesson="inteligencia">
-
-                        Ver aula
-
-                    </button>
-
-                </article>
-
-            </div>
-
-
-            <div
-                id="lessonContent"
-                class="lesson-content">
-
-                <h3>
-                    Selecione uma aula
-                </h3>
-
-                <p>
-                    Clique em "Ver aula" para
-                    começar.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             PROJETOS
-        ========================== -->
-
-        <section
-            id="projetos"
-            class="page-section">
-
-            <div class="section-title">
-
-                <span>
-                    CRIATIVIDADE
-                </span>
-
-                <h2>
-                    Meus Projetos
-                </h2>
-
-                <p>
-                    Cadastre e organize seus projetos
-                    de robótica.
-                </p>
-
-            </div>
-
-
-            <div class="project-tools">
-
-                <input
-                    type="text"
-                    id="searchProject"
-                    placeholder="🔎 Pesquisar projeto...">
-
-                <button
-                    id="newProjectButton"
-                    class="primary-button">
-
-                    + Novo projeto
-
+                <button id="projectsButton" class="secondary-button">
+                    🤖 Ver projetos
                 </button>
 
             </div>
 
+        </div>
 
-            <!-- FORMULÁRIO -->
-
-            <div
-                id="projectForm"
-                class="project-form hidden">
-
-                <h3>
-                    ➕ Novo Projeto
-                </h3>
-
-
-                <label>
-                    Nome do projeto
-                </label>
-
-                <input
-                    id="projectName"
-                    type="text"
-                    placeholder="Ex.: Robô Seguidor de Linha">
-
-
-                <label>
-                    Tecnologia
-                </label>
-
-                <input
-                    id="projectTech"
-                    type="text"
-                    placeholder="Ex.: Arduino">
-
-
-                <label>
-                    Descrição
-                </label>
-
-                <textarea
-                    id="projectDescription"
-                    placeholder="Descreva seu projeto...">
-                </textarea>
-
-
-                <label>
-                    Imagem
-                </label>
-<div class="image-upload">
-
-    <label for="projectImage" class="upload-button">
-        📷 Escolher imagem do projeto
-    </label>
-
-    <input
-        id="projectImage"
-        type="file"
-        accept="image/png, image/jpeg, image/jpg, image/webp"
-        hidden>
-
-    <div id="imagePreviewContainer" class="image-preview hidden">
-
-        <h4>Imagem selecionada:</h4>
-
-        <img
-            id="imagePreview"
-            src=""
-            alt="Pré-visualização do projeto">
+        <div class="robot-image">
+            🤖
+        </div>
 
     </div>
 
-</div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <strong id="totalProjetos">0</strong>
+            <span>Projetos</span>
+        </div>
+
+        <div class="stat-card">
+            <strong>12</strong>
+            <span>Aulas</span>
+        </div>
+
+        <div class="stat-card">
+            <strong>8</strong>
+            <span>Desafios</span>
+        </div>
+
+        <div class="stat-card">
+            <strong>100%</strong>
+            <span>Criatividade</span>
+        </div>
+
+    </div>
 
 
-                <div class="form-buttons">
+    <div class="content-box">
 
-                    <button
-                        id="saveProjectButton"
-                        class="primary-button">
+        <span class="small-title">
+            SOBRE A OFICINA
+        </span>
 
-                        💾 Salvar
+        <h2>
+            Tecnologia na prática
+        </h2>
 
-                    </button>
+        <p>
+            A Oficina de Robótica é um ambiente educativo
+            onde os alunos podem aprender programação,
+            eletrônica e robótica construindo seus próprios
+            projetos.
+        </p>
 
-                    <button
-                        id="cancelProjectButton"
-                        class="secondary-button">
+    </div>
 
-                        Cancelar
+</section>
 
-                    </button>
 
-                </div>
+<!-- AULAS -->
 
+<section id="aulas" class="page-section">
+
+    <div class="section-title">
+
+        <span>
+            APRENDIZADO
+        </span>
+
+        <h2>
+            Aulas de Robótica
+        </h2>
+
+        <p>
+            Escolha um assunto para começar.
+        </p>
+
+    </div>
+
+
+    <div class="lesson-grid">
+
+        <article class="lesson-card">
+
+            <div class="icon">
+                💻
             </div>
 
+            <h3>
+                Programação
+            </h3>
 
-            <!-- PROJETOS -->
+            <p>
+                Aprenda lógica, variáveis,
+                condições, funções e comandos.
+            </p>
 
-            <div
-                id="projectGrid"
-                class="project-grid">
+            <button
+                class="lesson-button"
+                data-lesson="programacao">
+                Ver aula
+            </button>
+
+        </article>
+
+
+        <article class="lesson-card">
+
+            <div class="icon">
+                ⚡
             </div>
 
-        </section>
+            <h3>
+                Eletrônica
+            </h3>
+
+            <p>
+                Conheça LEDs, resistores,
+                sensores, motores e circuitos.
+            </p>
+
+            <button
+                class="lesson-button"
+                data-lesson="eletronica">
+                Ver aula
+            </button>
+
+        </article>
 
 
-        <!-- =========================
-             QUIZ
-        ========================== -->
+        <article class="lesson-card">
 
-        <section
-            id="quiz"
-            class="page-section">
-
-            <div class="section-title">
-
-                <span>
-                    DESAFIO
-                </span>
-
-                <h2>
-                    Quiz de Robótica
-                </h2>
-
-                <p>
-                    Teste seus conhecimentos.
-                </p>
-
+            <div class="icon">
+                🤖
             </div>
 
+            <h3>
+                Robótica
+            </h3>
 
-            <div class="quiz-box">
+            <p>
+                Aprenda como juntar eletrônica
+                e programação para criar robôs.
+            </p>
 
-                <div class="quiz-top">
+            <button
+                class="lesson-button"
+                data-lesson="robotica">
+                Ver aula
+            </button>
 
-                    <span id="quizNumber">
-                        Pergunta 1
-                    </span>
-
-                    <strong id="quizScore">
-                        Pontos: 0
-                    </strong>
-
-                </div>
-
-
-                <h3 id="quizQuestion">
-                    Carregando pergunta...
-                </h3>
+        </article>
 
 
-                <div id="quizOptions">
-                </div>
+        <article class="lesson-card">
 
-
-                <div
-                    id="quizFeedback"
-                    class="quiz-feedback">
-                </div>
-
-
-                <button
-                    id="nextQuestion"
-                    class="primary-button hidden">
-
-                    Próxima pergunta →
-
-                </button>
-
+            <div class="icon">
+                🧠
             </div>
 
-        </section>
+            <h3>
+                Inteligência
+            </h3>
+
+            <p>
+                Explore sensores e sistemas
+                automatizados.
+            </p>
+
+            <button
+                class="lesson-button"
+                data-lesson="inteligencia">
+                Ver aula
+            </button>
+
+        </article>
+
+    </div>
 
 
-        <!-- =========================
-             COMPONENTES
-        ========================== -->
-
-        <section
-            id="componentes"
-            class="page-section">
-
-            <div class="section-title">
-
-                <span>
-                    ELETRÔNICA
-                </span>
-
-                <h2>
-                    Componentes
-                </h2>
-
-                <p>
-                    Conheça alguns componentes
-                    utilizados na robótica.
-                </p>
-
-            </div>
-
-
-            <div class="component-grid">
-
-                <div class="component-card">
-
-                    <div>
-                        🔴
-                    </div>
-
-                    <h3>
-                        LED
-                    </h3>
-
-                    <p>
-                        Componente que emite luz.
-                    </p>
-
-                </div>
-
-
-                <div class="component-card">
-
-                    <div>
-                        🟦
-                    </div>
-
-                    <h3>
-                        Resistor
-                    </h3>
-
-                    <p>
-                        Controla a corrente elétrica
-                        do circuito.
-                    </p>
-
-                </div>
-
-
-                <div class="component-card">
-
-                    <div>
-                        📡
-                    </div>
-
-                    <h3>
-                        Sensor
-                    </h3>
-
-                    <p>
-                        Detecta informações do ambiente.
-                    </p>
-
-                </div>
-
-
-                <div class="component-card">
-
-                    <div>
-                        ⚙️
-                    </div>
-
-                    <h3>
-                        Motor
-                    </h3>
-
-                    <p>
-                        Permite movimentar robôs.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             CONTATO
-        ========================== -->
-
-        <section
-            id="contato"
-            class="page-section">
-
-            <div class="section-title">
-
-                <span>
-                    FALE CONOSCO
-                </span>
-
-                <h2>
-                    Contato
-                </h2>
-
-            </div>
-
-
-            <form
-                id="contactForm"
-                class="contact-form">
-
-                <label>
-                    Nome
-                </label>
-
-                <input
-                    id="contactName"
-                    type="text"
-                    placeholder="Seu nome"
-                    required>
-
-
-                <label>
-                    E-mail
-                </label>
-
-                <input
-                    id="contactEmail"
-                    type="email"
-                    placeholder="seuemail@email.com"
-                    required>
-
-
-                <label>
-                    Mensagem
-                </label>
-
-                <textarea
-                    id="contactMessage"
-                    placeholder="Digite sua mensagem..."
-                    required>
-                </textarea>
-
-
-                <button
-                    type="submit"
-                    class="primary-button">
-
-                    📩 Enviar mensagem
-
-                </button>
-
-            </form>
-
-        </section>
-
-    </main>
-
-
-    <!-- =========================
-         RODAPÉ
-    ========================== -->
-
-    <footer>
+    <div id="lessonContent" class="lesson-content">
 
         <h3>
-            🤖 RoboLab
+            Selecione uma aula
         </h3>
 
         <p>
-            Oficina de Robótica Educacional
+            Clique em "Ver aula" para começar.
         </p>
+
+    </div>
+
+</section>
+
+
+<!-- PROJETOS -->
+
+<section id="projetos" class="page-section">
+
+    <div class="section-title">
+
+        <span>
+            CRIATIVIDADE
+        </span>
+
+        <h2>
+            Meus Projetos
+        </h2>
 
         <p>
-            © 2026 - Projeto Educacional
+            Cadastre e organize seus projetos de robótica.
         </p>
 
-    </footer>
+    </div>
 
 
-    <!-- JAVASCRIPT -->
+    <div class="project-tools">
 
-    <script src="script.js"></script>
+        <input
+            type="text"
+            id="searchProject"
+            placeholder="🔎 Pesquisar projeto...">
+
+        <button
+            id="newProjectButton"
+            class="primary-button">
+            + Novo projeto
+        </button>
+
+    </div>
+
+
+    <!-- FORMULÁRIO -->
+
+    <div
+        id="projectForm"
+        class="project-form hidden">
+
+        <h3>
+            ➕ Novo Projeto
+        </h3>
+
+
+        <label>
+            Nome do projeto
+        </label>
+
+        <input
+            id="projectName"
+            type="text"
+            placeholder="Ex.: Robô Seguidor de Linha">
+
+
+        <label>
+            Tecnologia
+        </label>
+
+        <input
+            id="projectTech"
+            type="text"
+            placeholder="Ex.: Arduino">
+
+
+        <label>
+            Descrição
+        </label>
+
+        <textarea
+            id="projectDescription"
+            placeholder="Descreva seu projeto..."></textarea>
+
+
+        <!-- NOVO CAMPO DE LINK -->
+
+        <label>
+            🔗 Link do projeto
+        </label>
+
+        <input
+            id="projectLink"
+            type="url"
+            placeholder="https://github.com/seu-projeto">
+
+        <p style="font-size:13px; margin-top:-8px;">
+            Coloque aqui o endereço do GitHub, YouTube,
+            Google Drive ou outro site do projeto.
+        </p>
+
+
+        <!-- IMAGEM -->
+
+        <label>
+            🖼️ Imagem
+        </label>
+
+        <div class="image-upload">
+
+            <label
+                for="projectImage"
+                class="upload-button">
+                📷 Escolher imagem do projeto
+            </label>
+
+            <input
+                id="projectImage"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg, image/webp"
+                hidden>
+
+            <div
+                id="imagePreviewContainer"
+                class="image-preview hidden">
+
+                <h4>
+                    Imagem selecionada:
+                </h4>
+
+                <img
+                    id="imagePreview"
+                    src=""
+                    alt="Pré-visualização do projeto">
+
+            </div>
+
+        </div>
+
+
+        <div class="form-buttons">
+
+            <button
+                id="saveProjectButton"
+                class="primary-button">
+                💾 Salvar
+            </button>
+
+            <button
+                id="cancelProjectButton"
+                class="secondary-button">
+                Cancelar
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROJETOS -->
+
+    <div
+        id="projectGrid"
+        class="project-grid">
+    </div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz" class="page-section">
+
+    <div class="section-title">
+
+        <span>
+            DESAFIO
+        </span>
+
+        <h2>
+            Quiz de Robótica
+        </h2>
+
+        <p>
+            Teste seus conhecimentos.
+        </p>
+
+    </div>
+
+
+    <div class="quiz-box">
+
+        <div class="quiz-top">
+
+            <span id="quizNumber">
+                Pergunta 1
+            </span>
+
+            <strong id="quizScore">
+                Pontos: 0
+            </strong>
+
+        </div>
+
+
+        <h3 id="quizQuestion">
+            Carregando pergunta...
+        </h3>
+
+
+        <div id="quizOptions">
+        </div>
+
+
+        <div
+            id="quizFeedback"
+            class="quiz-feedback">
+        </div>
+
+
+        <button
+            id="nextQuestion"
+            class="primary-button hidden">
+            Próxima pergunta →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- COMPONENTES -->
+
+<section id="componentes" class="page-section">
+
+    <div class="section-title">
+
+        <span>
+            ELETRÔNICA
+        </span>
+
+        <h2>
+            Componentes
+        </h2>
+
+        <p>
+            Conheça alguns componentes utilizados na robótica.
+        </p>
+
+    </div>
+
+
+    <div class="component-grid">
+
+        <div class="component-card">
+
+            <div class="icon">
+                🔴
+            </div>
+
+            <h3>
+                LED
+            </h3>
+
+            <p>
+                Componente que emite luz.
+            </p>
+
+        </div>
+
+
+        <div class="component-card">
+
+            <div class="icon">
+                🟦
+            </div>
+
+            <h3>
+                Resistor
+            </h3>
+
+            <p>
+                Controla a corrente elétrica do circuito.
+            </p>
+
+        </div>
+
+
+        <div class="component-card">
+
+            <div class="icon">
+                📡
+            </div>
+
+            <h3>
+                Sensor
+            </h3>
+
+            <p>
+                Detecta informações do ambiente.
+            </p>
+
+        </div>
+
+
+        <div class="component-card">
+
+            <div class="icon">
+                ⚙️
+            </div>
+
+            <h3>
+                Motor
+            </h3>
+
+            <p>
+                Permite movimentar robôs.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTATO -->
+
+<section id="contato" class="page-section">
+
+    <div class="section-title">
+
+        <span>
+            FALE CONOSCO
+        </span>
+
+        <h2>
+            Contato
+        </h2>
+
+    </div>
+
+
+    <form
+        id="contactForm"
+        class="contact-form">
+
+        <label>
+            Nome
+        </label>
+
+        <input
+            id="contactName"
+            type="text"
+            placeholder="Seu nome"
+            required>
+
+
+        <label>
+            E-mail
+        </label>
+
+        <input
+            id="contactEmail"
+            type="email"
+            placeholder="seuemail@email.com"
+            required>
+
+
+        <label>
+            Mensagem
+        </label>
+
+        <textarea
+            id="contactMessage"
+            placeholder="Digite sua mensagem..."
+            required></textarea>
+
+
+        <button
+            type="submit"
+            class="primary-button">
+            📩 Enviar mensagem
+        </button>
+
+    </form>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    <h3>
+        🤖 RoboLab
+    </h3>
+
+    <p>
+        Oficina de Robótica Educacional
+    </p>
+
+    <p>
+        © 2026 - Projeto Educacional
+    </p>
+
+</footer>
+
+
+<script>
+
+    /* =====================================================
+       NAVEGAÇÃO
+    ===================================================== */
+
+    const navButtons =
+        document.querySelectorAll(".nav-button");
+
+    const sections =
+        document.querySelectorAll(".page-section");
+
+    function showSection(sectionId) {
+
+        sections.forEach(section => {
+            section.classList.remove("active-section");
+        });
+
+        navButtons.forEach(button => {
+            button.classList.remove("active");
+        });
+
+        const selected =
+            document.getElementById(sectionId);
+
+        if (selected) {
+            selected.classList.add("active-section");
+        }
+
+        const activeButton =
+            document.querySelector(
+                `.nav-button[data-section="${sectionId}"]`
+            );
+
+        if (activeButton) {
+            activeButton.classList.add("active");
+        }
+
+        document
+            .getElementById("navbar")
+            .classList.remove("open");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    navButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const section =
+                button.dataset.section;
+
+            showSection(section);
+
+        });
+
+    });
+
+
+    /* =====================================================
+       BOTÕES DO INÍCIO
+    ===================================================== */
+
+    document
+        .getElementById("startButton")
+        .addEventListener("click", () => {
+
+            showSection("aulas");
+
+        });
+
+
+    document
+        .getElementById("projectsButton")
+        .addEventListener("click", () => {
+
+            showSection("projetos");
+
+        });
+
+
+    /* =====================================================
+       MENU MOBILE
+    ===================================================== */
+
+    document
+        .getElementById("menuButton")
+        .addEventListener("click", () => {
+
+            document
+                .getElementById("navbar")
+                .classList.toggle("open");
+
+        });
+
+
+    /* =====================================================
+       MODO ESCURO
+    ===================================================== */
+
+    const themeButton =
+        document.getElementById("themeButton");
+
+    themeButton.addEventListener("click", () => {
+
+        document.body.classList.toggle("dark");
+
+        if (
+            document.body.classList.contains("dark")
+        ) {
+            themeButton.textContent = "☀️";
+
+            localStorage.setItem(
+                "theme",
+                "dark"
+            );
+
+        } else {
+
+            themeButton.textContent = "🌙";
+
+            localStorage.setItem(
+                "theme",
+                "light"
+            );
+
+        }
+
+    });
+
+
+    if (
+        localStorage.getItem("theme") === "dark"
+    ) {
+
+        document.body.classList.add("dark");
+
+        themeButton.textContent = "☀️";
+
+    }
+
+
+    /* =====================================================
+       AULAS
+    ===================================================== */
+
+    const lessons = {
+
+        programacao: {
+            title: "💻 Programação",
+            text:
+                "Nesta aula você aprende lógica de programação, variáveis, condições, repetição e funções. Esses conceitos são importantes para controlar robôs e sistemas eletrônicos."
+        },
+
+        eletronica: {
+            title: "⚡ Eletrônica",
+            text:
+                "Aprenda sobre LEDs, resistores, sensores, motores e circuitos. A eletrônica permite que os componentes do robô funcionem corretamente."
+        },
+
+        robotica: {
+            title: "🤖 Robótica",
+            text:
+                "A robótica combina programação, eletrônica e mecânica. Você pode utilizar Arduino e sensores para criar projetos interativos."
+        },
+
+        inteligencia: {
+            title: "🧠 Inteligência",
+            text:
+                "Sistemas inteligentes utilizam sensores e programação para perceber informações do ambiente e tomar decisões automaticamente."
+        }
+
+    };
+
+
+    document
+        .querySelectorAll(".lesson-button")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const lesson =
+                    lessons[button.dataset.lesson];
+
+                document.getElementById(
+                    "lessonContent"
+                ).innerHTML = `
+
+                    <h3>${lesson.title}</h3>
+
+                    <p>
+                        ${lesson.text}
+                    </p>
+
+                `;
+
+            });
+
+        });
+
+
+    /* =====================================================
+       PROJETOS
+    ===================================================== */
+
+    const projectForm =
+        document.getElementById("projectForm");
+
+    const newProjectButton =
+        document.getElementById("newProjectButton");
+
+    const cancelProjectButton =
+        document.getElementById("cancelProjectButton");
+
+    const saveProjectButton =
+        document.getElementById("saveProjectButton");
+
+    const projectGrid =
+        document.getElementById("projectGrid");
+
+    const searchProject =
+        document.getElementById("searchProject");
+
+    const projectImage =
+        document.getElementById("projectImage");
+
+    const imagePreview =
+        document.getElementById("imagePreview");
+
+    const imagePreviewContainer =
+        document.getElementById(
+            "imagePreviewContainer"
+        );
+
+
+    let selectedImage = "";
+
+
+    /* Abrir formulário */
+
+    newProjectButton.addEventListener(
+        "click",
+        () => {
+
+            projectForm.classList.remove("hidden");
+
+            document
+                .getElementById("projectName")
+                .focus();
+
+        }
+    );
+
+
+    /* Cancelar */
+
+    cancelProjectButton.addEventListener(
+        "click",
+        () => {
+
+            clearForm();
+
+        }
+    );
+
+
+    /* =====================================================
+       PRÉ-VISUALIZAÇÃO DA IMAGEM
+    ===================================================== */
+
+    projectImage.addEventListener(
+        "change",
+        function () {
+
+            const file = this.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            const reader =
+                new FileReader();
+
+            reader.onload = function (event) {
+
+                selectedImage =
+                    event.target.result;
+
+                imagePreview.src =
+                    selectedImage;
+
+                imagePreviewContainer
+                    .classList
+                    .remove("hidden");
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+    );
+
+
+    /* =====================================================
+       SALVAR PROJETO
+    ===================================================== */
+
+    saveProjectButton.addEventListener(
+        "click",
+        () => {
+
+            const name =
+                document
+                    .getElementById("projectName")
+                    .value
+                    .trim();
+
+            const tech =
+                document
+                    .getElementById("projectTech")
+                    .value
+                    .trim();
+
+            const description =
+                document
+                    .getElementById("projectDescription")
+                    .value
+                    .trim();
+
+            const link =
+                document
+                    .getElementById("projectLink")
+                    .value
+                    .trim();
+
+
+            if (!name) {
+
+                alert(
+                    "Digite o nome do projeto."
+                );
+
+                return;
+
+            }
+
+
+            /* Verificar o link */
+
+            if (link) {
+
+                try {
+
+                    new URL(link);
+
+                } catch {
+
+                    alert(
+                        "Digite um link válido. Exemplo: https://github.com/"
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            const project = {
+
+                id: Date.now(),
+
+                name: name,
+
+                tech: tech || "Não informado",
+
+                description:
+                    description ||
+                    "Sem descrição.",
+
+                link: link,
+
+                image: selectedImage
+
+            };
+
+
+            const projects =
+                getProjects();
+
+            projects.push(project);
+
+            localStorage.setItem(
+                "robolab_projects",
+                JSON.stringify(projects)
+            );
+
+
+            clearForm();
+
+            renderProjects();
+
+            alert(
+                "Projeto salvo com sucesso! 🤖"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       PEGAR PROJETOS
+    ===================================================== */
+
+    function getProjects() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(
+                    "robolab_projects"
+                )
+            ) || [];
+
+        } catch {
+
+            return [];
+
+        }
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR PROJETOS
+    ===================================================== */
+
+    function renderProjects(
+        search = ""
+    ) {
+
+        const projects =
+            getProjects();
+
+        const filtered =
+            projects.filter(project => {
+
+                const text = (
+
+                    project.name +
+                    " " +
+                    project.tech +
+                    " " +
+                    project.description
+
+                ).toLowerCase();
+
+                return text.includes(
+                    search.toLowerCase()
+                );
+
+            });
+
+
+        document.getElementById(
+            "totalProjetos"
+        ).textContent =
+            projects.length;
+
+
+        if (filtered.length === 0) {
+
+            projectGrid.innerHTML = `
+
+                <div class="empty">
+
+                    <h3>
+                        📂 Nenhum projeto encontrado
+                    </h3>
+
+                    <p>
+                        Clique em "+ Novo projeto"
+                        para cadastrar seu primeiro projeto.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        projectGrid.innerHTML = "";
+
+
+        filtered.forEach(project => {
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "project-card";
+
+
+            /* =================================================
+               IMAGEM
+            ================================================= */
+
+            let imageHTML = "";
+
+            if (project.image) {
+
+                imageHTML = `
+
+                    <img
+                        src="${project.image}"
+                        alt="Imagem do projeto ${escapeHTML(project.name)}">
+
+                `;
+
+            }
+
+
+            /* =================================================
+               LINK
+            ================================================= */
+
+            let linkHTML = "";
+
+            if (project.link) {
+
+                linkHTML = `
+
+                    <a
+                        class="link-button"
+                        href="${escapeAttribute(project.link)}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        🔗 Abrir projeto
+
+                    </a>
+
+                `;
+
+            }
+
+
+            card.innerHTML = `
+
+                ${imageHTML}
+
+                <h3>
+                    ${escapeHTML(project.name)}
+                </h3>
+
+                <span class="technology">
+                    ${escapeHTML(project.tech)}
+                </span>
+
+                <p>
+                    ${escapeHTML(project.description)}
+                </p>
+
+                <div class="project-actions">
+
+                    ${linkHTML}
+
+                    <button
+                        class="delete-button"
+                        onclick="deleteProject(${project.id})">
+
+                        🗑️ Excluir
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            projectGrid.appendChild(card);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       EXCLUIR PROJETO
+    ===================================================== */
+
+    function deleteProject(id) {
+
+        const confirmDelete =
+            confirm(
+                "Tem certeza que deseja excluir este projeto?"
+            );
+
+        if (!confirmDelete) {
+            return;
+        }
+
+
+        const projects =
+            getProjects().filter(
+                project =>
+                    project.id !== id
+            );
+
+
+        localStorage.setItem(
+            "robolab_projects",
+            JSON.stringify(projects)
+        );
+
+
+        renderProjects();
+
+    }
+
+
+    /* =====================================================
+       PESQUISA
+    ===================================================== */
+
+    searchProject.addEventListener(
+        "input",
+        () => {
+
+            renderProjects(
+                searchProject.value
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       LIMPAR FORMULÁRIO
+    ===================================================== */
+
+    function clearForm() {
+
+        document
+            .getElementById("projectName")
+            .value = "";
+
+        document
+            .getElementById("projectTech")
+            .value = "";
+
+        document
+            .getElementById("projectDescription")
+            .value = "";
+
+        document
+            .getElementById("projectLink")
+            .value = "";
+
+        projectImage.value = "";
+
+        selectedImage = "";
+
+        imagePreview.src = "";
+
+        imagePreviewContainer
+            .classList
+            .add("hidden");
+
+        projectForm
+            .classList
+            .add("hidden");
+
+    }
+
+
+    /* =====================================================
+       SEGURANÇA PARA TEXTO
+    ===================================================== */
+
+    function escapeHTML(text) {
+
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    function escapeAttribute(text) {
+
+        return String(text)
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+    }
+
+
+    /* =====================================================
+       QUIZ
+    ===================================================== */
+
+    const quizQuestions = [
+
+        {
+            question:
+                "Qual placa é muito utilizada em projetos de robótica educacional?",
+
+            options: [
+                "Arduino",
+                "Televisão",
+                "Rádio",
+                "Calculadora"
+            ],
+
+            answer: 0
+        },
+
+        {
+            question:
+                "Qual componente emite luz?",
+
+            options: [
+                "Resistor",
+                "LED",
+                "Sensor",
+                "Motor"
+            ],
+
+            answer: 1
+        },
+
+        {
+            question:
+                "Qual componente pode detectar informações do ambiente?",
+
+            options: [
+                "Sensor",
+                "LED",
+                "Resistor",
+                "Fio"
+            ],
+
+            answer: 0
+        },
+
+        {
+            question:
+                "Qual linguagem é utilizada no Arduino IDE?",
+
+            options: [
+                "HTML",
+                "CSS",
+                "C/C++",
+                "SQL"
+            ],
+
+            answer: 2
+        },
+
+        {
+            question:
+                "Para que serve um resistor?",
+
+            options: [
+                "Controlar a corrente elétrica",
+                "Criar internet",
+                "Produzir som",
+                "Armazenar imagens"
+            ],
+
+            answer: 0
+        }
+
+    ];
+
+
+    let currentQuestion = 0;
+    let score = 0;
+
+
+    function loadQuiz() {
+
+        const question =
+            quizQuestions[currentQuestion];
+
+
+        document.getElementById(
+            "quizNumber"
+        ).textContent =
+            `Pergunta ${currentQuestion + 1} de ${quizQuestions.length}`;
+
+
+        document.getElementById(
+            "quizScore"
+        ).textContent =
+            `Pontos: ${score}`;
+
+
+        document.getElementById(
+            "quizQuestion"
+        ).textContent =
+            question.question;
+
+
+        const optionsContainer =
+            document.getElementById(
+                "quizOptions"
+            );
+
+
+        const feedback =
+            document.getElementById(
+                "quizFeedback"
+            );
+
+
+        const next =
+            document.getElementById(
+                "nextQuestion"
+            );
+
+
+        optionsContainer.innerHTML = "";
+
+        feedback.textContent = "";
+
+        next.classList.add("hidden");
+
+
+        question.options.forEach(
+            (option, index) => {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+                button.className =
+                    "quiz-option";
+
+                button.textContent =
+                    option;
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        answerQuestion(
+                            index,
+                            button
+                        );
+
+                    }
+                );
+
+
+                optionsContainer
+                    .appendChild(button);
+
+            }
+        );
+
+    }
+
+
+    function answerQuestion(
+        selected,
+        clickedButton
+    ) {
+
+        const question =
+            quizQuestions[currentQuestion];
+
+
+        const options =
+            document.querySelectorAll(
+                ".quiz-option"
+            );
+
+
+        options.forEach(button => {
+
+            button.disabled = true;
+
+        });
+
+
+        if (
+            selected === question.answer
+        ) {
+
+            clickedButton.classList.add(
+                "correct"
+            );
+
+            score++;
+
+            document.getElementById(
+                "quizFeedback"
+            ).textContent =
+                "✅ Resposta correta!";
+
+        } else {
+
+            clickedButton.classList.add(
+                "wrong"
+            );
+
+            options[
+                question.answer
+            ].classList.add(
+                "correct"
+            );
+
+            document.getElementById(
+                "quizFeedback"
+            ).textContent =
+                "❌ Resposta incorreta.";
+
+        }
+
+
+        document.getElementById(
+            "quizScore"
+        ).textContent =
+            `Pontos: ${score}`;
+
+
+        const next =
+            document.getElementById(
+                "nextQuestion"
+            );
+
+
+        next.classList.remove("hidden");
+
+
+        if (
+            currentQuestion ===
+            quizQuestions.length - 1
+        ) {
+
+            next.textContent =
+                "🏆 Ver resultado";
+
+        }
+
+    }
+
+
+    document
+        .getElementById("nextQuestion")
+        .addEventListener(
+            "click",
+            () => {
+
+                currentQuestion++;
+
+
+                if (
+                    currentQuestion >=
+                    quizQuestions.length
+                ) {
+
+                    showQuizResult();
+
+                    return;
+
+                }
+
+
+                loadQuiz();
+
+            }
+        );
+
+
+    function showQuizResult() {
+
+        document.getElementById(
+            "quizNumber"
+        ).textContent =
+            "Resultado";
+
+
+        document.getElementById(
+            "quizScore"
+        ).textContent =
+            `Pontos: ${score}`;
+
+
+        document.getElementById(
+            "quizQuestion"
+        ).textContent =
+            `Você acertou ${score} de ${quizQuestions.length} perguntas!`;
+
+
+        document.getElementById(
+            "quizOptions"
+        ).innerHTML = "";
+
+
+        document.getElementById(
+            "quizFeedback"
+        ).innerHTML = `
+
+            <p>
+                ${
+                    score === quizQuestions.length
+                    ? "🏆 Excelente! Você acertou tudo!"
+                    : score >= 3
+                    ? "👏 Muito bem! Você conhece bastante de robótica."
+                    : "💡 Continue estudando e tente novamente!"
+                }
+            </p>
+
+            <br>
+
+            <button
+                class="primary-button"
+                onclick="restartQuiz()">
+
+                🔄 Fazer novamente
+
+            </button>
+
+        `;
+
+
+        document.getElementById(
+            "nextQuestion"
+        ).classList.add("hidden");
+
+    }
+
+
+    function restartQuiz() {
+
+        currentQuestion = 0;
+
+        score = 0;
+
+        loadQuiz();
+
+    }
+
+
+    /* =====================================================
+       FORMULÁRIO DE CONTATO
+    ===================================================== */
+
+    document
+        .getElementById("contactForm")
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                const name =
+                    document.getElementById(
+                        "contactName"
+                    ).value;
+
+                alert(
+                    `Obrigado, ${name}! Sua mensagem foi registrada.`
+                );
+
+                this.reset();
+
+            }
+        );
+
+
+    /* =====================================================
+       INICIAR
+    ===================================================== */
+
+    renderProjects();
+
+    loadQuiz();
+
+</script>
 
 </body>
-
 </html>
