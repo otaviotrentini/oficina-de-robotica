@@ -728,6 +728,1289 @@
 
 </head>
 
+```html
+<!-- =========================================================
+     PAINEL DE ACESSIBILIDADE
+     RoboLab - Oficina de Robótica
+========================================================= -->
+
+<style>
+
+/* =========================================================
+   BOTÃO DE ACESSIBILIDADE
+========================================================= */
+
+#accessibilityButton {
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    border: 3px solid white;
+
+    background: #005fcc;
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    z-index: 9999;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#accessibilityButton:hover,
+#accessibilityButton:focus {
+    background: #003f91;
+
+    outline: 4px solid #ffcc00;
+}
+
+
+/* =========================================================
+   PAINEL
+========================================================= */
+
+#accessibilityPanel {
+
+    position: fixed;
+
+    right: 20px;
+    bottom: 90px;
+
+    width: 330px;
+    max-width: calc(100vw - 40px);
+
+    max-height: 75vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    color: #111;
+
+    border: 3px solid #005fcc;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    z-index: 9998;
+
+    box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+
+    display: none;
+}
+
+#accessibilityPanel.open {
+    display: block;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+#accessibilityPanel h2 {
+
+    margin-top: 0;
+
+    font-size: 23px;
+
+    color: #003f91;
+
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.accessibility-option {
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin: 6px 0;
+
+    border: 2px solid #777;
+
+    border-radius: 8px;
+
+    background: #f5f5f5;
+
+    color: #111;
+
+    text-align: left;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+.accessibility-option:hover,
+.accessibility-option:focus {
+
+    background: #e3f0ff;
+
+    border-color: #005fcc;
+
+    outline: 3px solid #ffcc00;
+
+}
+
+
+/* =========================================================
+   BOTÃO DESATIVADO
+========================================================= */
+
+.accessibility-option.active {
+
+    background: #005fcc;
+
+    color: white;
+
+    border-color: #003f91;
+
+}
+
+
+/* =========================================================
+   SEPARADOR
+========================================================= */
+
+.accessibility-separator {
+
+    border: none;
+
+    border-top: 1px solid #aaa;
+
+    margin: 15px 0;
+
+}
+
+
+/* =========================================================
+   ALTO CONTRASTE
+========================================================= */
+
+body.high-contrast {
+
+    background: #000 !important;
+
+    color: #fff !important;
+
+}
+
+body.high-contrast * {
+
+    border-color: #fff !important;
+
+}
+
+body.high-contrast header,
+body.high-contrast main,
+body.high-contrast section,
+body.high-contrast article,
+body.high-contrast .card,
+body.high-contrast footer {
+
+    background: #000 !important;
+
+    color: #fff !important;
+
+}
+
+body.high-contrast p,
+body.high-contrast span,
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4 {
+
+    color: #fff !important;
+
+}
+
+body.high-contrast a {
+
+    color: #ffff00 !important;
+
+}
+
+body.high-contrast button {
+
+    background: #000 !important;
+
+    color: #fff !important;
+
+    border: 2px solid #fff !important;
+
+}
+
+
+/* =========================================================
+   MODO DALTONISMO
+========================================================= */
+
+/*
+   Não usamos apenas vermelho, amarelo e verde
+   para transmitir informações.
+*/
+
+body.colorblind-mode .success {
+
+    border-left: 8px solid #0072B2 !important;
+
+}
+
+body.colorblind-mode .warning {
+
+    border-left: 8px solid #E69F00 !important;
+
+}
+
+body.colorblind-mode .danger {
+
+    border-left: 8px solid #D55E00 !important;
+
+}
+
+
+/*
+   Adicionamos padrões visuais.
+*/
+
+body.colorblind-mode .traffic-green::before {
+
+    content: "●  VERDE - LIBERADO";
+
+    font-weight: bold;
+
+}
+
+body.colorblind-mode .traffic-yellow::before {
+
+    content: "▲  AMARELO - ATENÇÃO";
+
+    font-weight: bold;
+
+}
+
+body.colorblind-mode .traffic-red::before {
+
+    content: "■  VERMELHO - PARE";
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================================
+   MODO DISLEXIA
+========================================================= */
+
+body.dyslexia-mode {
+
+    font-family:
+        Arial,
+        Verdana,
+        sans-serif !important;
+
+    letter-spacing: 0.05em;
+
+    word-spacing: 0.12em;
+
+    line-height: 1.9;
+
+}
+
+
+/*
+   Aplicar também aos elementos.
+*/
+
+body.dyslexia-mode * {
+
+    font-family:
+        Arial,
+        Verdana,
+        sans-serif !important;
+
+}
+
+
+/* =========================================================
+   TEXTO MAIOR
+========================================================= */
+
+body.font-large {
+
+    font-size: 115%;
+
+}
+
+body.font-extra-large {
+
+    font-size: 135%;
+
+}
+
+
+/* =========================================================
+   ESPAÇAMENTO
+========================================================= */
+
+body.text-spacing {
+
+    letter-spacing: 0.08em;
+
+    word-spacing: 0.15em;
+
+    line-height: 2;
+
+}
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES
+========================================================= */
+
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
+
+}
+
+
+/* =========================================================
+   FOCO DO TECLADO
+========================================================= */
+
+*:focus-visible {
+
+    outline: 4px solid #ffcc00 !important;
+
+    outline-offset: 3px !important;
+
+}
+
+
+/* =========================================================
+   BOTÃO PULAR CONTEÚDO
+========================================================= */
+
+.skip-link {
+
+    position: fixed;
+
+    top: -100px;
+    left: 10px;
+
+    background: #000;
+
+    color: #fff;
+
+    padding: 15px 20px;
+
+    z-index: 10000;
+
+    border-radius: 0 0 8px 8px;
+
+    font-weight: bold;
+
+}
+
+.skip-link:focus {
+
+    top: 0;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #accessibilityPanel {
+
+        right: 10px;
+
+        bottom: 85px;
+
+        width: calc(100vw - 20px);
+
+    }
+
+    #accessibilityButton {
+
+        right: 15px;
+
+        bottom: 15px;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     LINK PARA PULAR O MENU
+========================================================= -->
+
+<a
+    href="#conteudo-principal"
+    class="skip-link">
+
+    Pular para o conteúdo principal
+
+</a>
+
+
+<!-- =========================================================
+     BOTÃO
+========================================================= -->
+
+<button
+    id="accessibilityButton"
+
+    type="button"
+
+    aria-label="Abrir painel de acessibilidade"
+
+    aria-expanded="false"
+
+    aria-controls="accessibilityPanel">
+
+    ♿
+
+</button>
+
+
+<!-- =========================================================
+     PAINEL
+========================================================= -->
+
+<section
+    id="accessibilityPanel"
+
+    aria-label="Opções de acessibilidade">
+
+
+    <h2>
+        ♿ Acessibilidade
+    </h2>
+
+
+    <p>
+        Personalize o site de acordo com
+        suas necessidades.
+    </p>
+
+
+    <hr class="accessibility-separator">
+
+
+    <!-- =====================================================
+         TAMANHO DA FONTE
+    ====================================================== -->
+
+    <h3>
+        🔠 Tamanho do texto
+    </h3>
+
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="fontNormal">
+
+        🔤 Texto normal
+
+    </button>
+
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="fontLarge">
+
+        🔠 Aumentar texto
+
+    </button>
+
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="fontExtraLarge">
+
+        🔡 Texto muito grande
+
+    </button>
+
+
+    <!-- =====================================================
+         CONTRASTE
+    ====================================================== -->
+
+    <h3>
+        👁️ Visual
+    </h3>
+
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="contrastButton">
+
+        ◐ Alto contraste
+
+    </button>
+
+
+    <!-- =====================================================
+         DALTONISMO
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="colorblindButton">
+
+        🎨 Modo para daltonismo
+
+    </button>
+
+
+    <!-- =====================================================
+         DISLEXIA
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="dyslexiaButton">
+
+        📖 Modo de leitura para dislexia
+
+    </button>
+
+
+    <!-- =====================================================
+         ESPAÇAMENTO
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="spacingButton">
+
+        ↔️ Aumentar espaçamento do texto
+
+    </button>
+
+
+    <!-- =====================================================
+         ANIMAÇÕES
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="motionButton">
+
+        ⏸️ Reduzir animações
+
+    </button>
+
+
+    <hr class="accessibility-separator">
+
+
+    <!-- =====================================================
+         LEITOR DE TEXTO
+    ====================================================== -->
+
+    <h3>
+        🔊 Leitura
+    </h3>
+
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="readButton">
+
+        🔊 Ler conteúdo da página
+
+    </button>
+
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="stopReadButton">
+
+        ⏹️ Parar leitura
+
+    </button>
+
+
+    <hr class="accessibility-separator">
+
+
+    <!-- =====================================================
+         RESET
+    ====================================================== -->
+
+    <button
+        type="button"
+        class="accessibility-option"
+        id="resetAccessibility">
+
+        🔄 Restaurar configurações
+
+    </button>
+
+
+    <!-- =====================================================
+         MENSAGEM PARA LEITOR DE TELA
+    ====================================================== -->
+
+    <div
+        id="accessibilityStatus"
+
+        role="status"
+
+        aria-live="polite"
+
+        style="
+            position:absolute;
+            width:1px;
+            height:1px;
+            padding:0;
+            margin:-1px;
+            overflow:hidden;
+            clip:rect(0,0,0,0);
+            white-space:nowrap;
+            border:0;
+        ">
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const accessibilityButton =
+    document.getElementById(
+        "accessibilityButton"
+    );
+
+
+const accessibilityPanel =
+    document.getElementById(
+        "accessibilityPanel"
+    );
+
+
+const accessibilityStatus =
+    document.getElementById(
+        "accessibilityStatus"
+    );
+
+
+/* =========================================================
+   ABRIR / FECHAR PAINEL
+========================================================= */
+
+accessibilityButton.addEventListener(
+    "click",
+    function() {
+
+        const isOpen =
+            accessibilityPanel.classList.toggle(
+                "open"
+            );
+
+
+        accessibilityButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+
+        if (isOpen) {
+
+            accessibilityStatus.textContent =
+                "Painel de acessibilidade aberto.";
+
+        } else {
+
+            accessibilityStatus.textContent =
+                "Painel de acessibilidade fechado.";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   FUNÇÃO DE AVISO
+========================================================= */
+
+function announce(message) {
+
+    accessibilityStatus.textContent = "";
+
+    setTimeout(() => {
+
+        accessibilityStatus.textContent =
+            message;
+
+    }, 50);
+
+}
+
+
+/* =========================================================
+   TAMANHO NORMAL
+========================================================= */
+
+document
+    .getElementById("fontNormal")
+    .addEventListener(
+        "click",
+        function() {
+
+            document.body.classList.remove(
+                "font-large",
+                "font-extra-large"
+            );
+
+
+            announce(
+                "Tamanho normal do texto ativado."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   TEXTO GRANDE
+========================================================= */
+
+document
+    .getElementById("fontLarge")
+    .addEventListener(
+        "click",
+        function() {
+
+            document.body.classList.remove(
+                "font-extra-large"
+            );
+
+            document.body.classList.add(
+                "font-large"
+            );
+
+
+            announce(
+                "Texto aumentado."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   TEXTO MUITO GRANDE
+========================================================= */
+
+document
+    .getElementById("fontExtraLarge")
+    .addEventListener(
+        "click",
+        function() {
+
+            document.body.classList.remove(
+                "font-large"
+            );
+
+            document.body.classList.add(
+                "font-extra-large"
+            );
+
+
+            announce(
+                "Texto muito grande ativado."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ALTO CONTRASTE
+========================================================= */
+
+document
+    .getElementById("contrastButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            const active =
+                document.body.classList.toggle(
+                    "high-contrast"
+                );
+
+
+            this.classList.toggle(
+                "active",
+                active
+            );
+
+
+            announce(
+
+                active
+                    ? "Alto contraste ativado."
+                    : "Alto contraste desativado."
+
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   MODO DALTONISMO
+========================================================= */
+
+document
+    .getElementById("colorblindButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            const active =
+                document.body.classList.toggle(
+                    "colorblind-mode"
+                );
+
+
+            this.classList.toggle(
+                "active",
+                active
+            );
+
+
+            announce(
+
+                active
+                    ? "Modo para daltonismo ativado."
+                    : "Modo para daltonismo desativado."
+
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   MODO DISLEXIA
+========================================================= */
+
+document
+    .getElementById("dyslexiaButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            const active =
+                document.body.classList.toggle(
+                    "dyslexia-mode"
+                );
+
+
+            this.classList.toggle(
+                "active",
+                active
+            );
+
+
+            announce(
+
+                active
+                    ? "Modo de leitura ativado."
+                    : "Modo de leitura desativado."
+
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ESPAÇAMENTO
+========================================================= */
+
+document
+    .getElementById("spacingButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            const active =
+                document.body.classList.toggle(
+                    "text-spacing"
+                );
+
+
+            this.classList.toggle(
+                "active",
+                active
+            );
+
+
+            announce(
+
+                active
+                    ? "Espaçamento aumentado."
+                    : "Espaçamento normalizado."
+
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES
+========================================================= */
+
+document
+    .getElementById("motionButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            const active =
+                document.body.classList.toggle(
+                    "reduce-motion"
+                );
+
+
+            this.classList.toggle(
+                "active",
+                active
+            );
+
+
+            announce(
+
+                active
+                    ? "Animações reduzidas."
+                    : "Animações normais ativadas."
+
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   LEITOR DE TEXTO
+========================================================= */
+
+document
+    .getElementById("readButton")
+    .addEventListener(
+        "click",
+        function() {
+
+
+            if (
+                !("speechSynthesis" in window)
+            ) {
+
+                announce(
+                    "A leitura automática não é suportada neste navegador."
+                );
+
+                return;
+
+            }
+
+
+            window.speechSynthesis.cancel();
+
+
+            const main =
+                document.querySelector(
+                    "main"
+                );
+
+
+            if (!main) {
+
+                announce(
+                    "Não foi encontrado conteúdo para leitura."
+                );
+
+                return;
+
+            }
+
+
+            const text =
+                main.innerText;
+
+
+            if (!text.trim()) {
+
+                announce(
+                    "Não há texto para ler."
+                );
+
+                return;
+
+            }
+
+
+            const speech =
+                new SpeechSynthesisUtterance(
+                    text
+                );
+
+
+            speech.lang = "pt-BR";
+
+            speech.rate = 0.85;
+
+            speech.pitch = 1;
+
+
+            window.speechSynthesis.speak(
+                speech
+            );
+
+
+            announce(
+                "Leitura da página iniciada."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   PARAR LEITURA
+========================================================= */
+
+document
+    .getElementById("stopReadButton")
+    .addEventListener(
+        "click",
+        function() {
+
+            if (
+                "speechSynthesis"
+                in window
+            ) {
+
+                window.speechSynthesis.cancel();
+
+            }
+
+
+            announce(
+                "Leitura interrompida."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   RESTAURAR
+========================================================= */
+
+document
+    .getElementById("resetAccessibility")
+    .addEventListener(
+        "click",
+        function() {
+
+
+            document.body.classList.remove(
+
+                "high-contrast",
+
+                "colorblind-mode",
+
+                "dyslexia-mode",
+
+                "font-large",
+
+                "font-extra-large",
+
+                "text-spacing",
+
+                "reduce-motion"
+
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".accessibility-option"
+                )
+                .forEach(button => {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            if (
+                "speechSynthesis"
+                in window
+            ) {
+
+                window.speechSynthesis.cancel();
+
+            }
+
+
+            announce(
+                "Todas as configurações de acessibilidade foram restauradas."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   TECLA ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            accessibilityPanel
+                .classList
+                .remove("open");
+
+
+            accessibilityButton
+                .setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ATALHOS DE TECLADO
+========================================================= */
+
+/*
+   Alt + A = abrir acessibilidade
+   Alt + + = aumentar texto
+   Alt + - = diminuir texto
+*/
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.altKey &&
+            event.key.toLowerCase() === "a"
+        ) {
+
+            event.preventDefault();
+
+            accessibilityButton.click();
+
+        }
+
+
+        if (
+            event.altKey &&
+            event.key === "+"
+        ) {
+
+            event.preventDefault();
+
+            document
+                .getElementById(
+                    "fontLarge"
+                )
+                .click();
+
+        }
+
+
+        if (
+            event.altKey &&
+            event.key === "-"
+        ) {
+
+            event.preventDefault();
+
+            document
+                .getElementById(
+                    "fontNormal"
+                )
+                .click();
+
+        }
+
+    }
+);
+
+</script>
+```
 
 <body>
 
@@ -789,7 +2072,7 @@
 </header>
 
 
-<main>
+<main>id="conteudo-principal" tabindex="-1"></main>
 
 
 <!-- =====================================================
@@ -3060,3 +4343,13 @@ loadQuiz();
     type="text"
     id="projectVideo"
     placeholder="videos/projeto1.mp4">
+    <figure>
+    <video controls aria-label="Vídeo demonstrativo do projeto Robô">
+        <source src="videos/robo.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos MP4.
+    </video>
+
+    <figcaption>
+        Vídeo demonstrativo do projeto Robô.
+    </figcaption>
+</figure>
