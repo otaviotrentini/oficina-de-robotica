@@ -1,1 +1,13 @@
-
+RoboLab_Midia_VSCode/
+│
+├── imagens/
+│   └── COLOQUE_SUAS_FOTOS_AQUI.txt
+│
+├── videos/
+│   └── COLOQUE_SEUS_VIDEOS_AQUI.txt
+│
+└── LEIA-ME.txt
+foto.jpg
+foto.jpeg
+foto2.jpg
+video.mp4
