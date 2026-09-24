@@ -1326,3 +1326,4 @@ source.type = "video/mp4";
 video.appendChild(source);
 
 card.appendChild(video);
+localStorage.setItem(...)
